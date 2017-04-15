@@ -15,7 +15,7 @@ namespace Sinergia.Modulo4.Comercio.Controllers
 
         public IActionResult Estoque()
         {
-            return View("index");
+            return View();
         }
 
     }

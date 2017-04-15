@@ -10,7 +10,7 @@ namespace Sinergia.Modulo4.Comercio.Controllers
     {
         public IActionResult Index()
         {
-            return View("Index");
+            return View();
         }
     }
 }

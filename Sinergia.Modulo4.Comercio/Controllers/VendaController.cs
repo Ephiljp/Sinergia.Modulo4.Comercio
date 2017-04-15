@@ -15,7 +15,7 @@ namespace Sinergia.Modulo4.Comercio.Controllers
 
         public IActionResult Orcamento()
         {
-            return View("index");
+            return View();
         }
     }
 }

@@ -15,22 +15,22 @@ namespace Sinergia.Modulo4.Comercio.Controllers
 
         public IActionResult VendasTotais()
         {
-            return View("index");
+            return View();
         }
 
         public IActionResult VendasPorCliente()
         {
-            return View("index");
+            return View();
         }
 
         public IActionResult VendasPorVendedor()
         {
-            return View("index");
+            return View();
         }
 
         public IActionResult ItensMaisVendidos()
         {
-            return View("index");
+            return View();
         }
 
     }

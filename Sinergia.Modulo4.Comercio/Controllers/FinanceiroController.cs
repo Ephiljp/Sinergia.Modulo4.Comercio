@@ -15,12 +15,12 @@ namespace Sinergia.Modulo4.Comercio.Controllers
 
         public IActionResult ContasAPagar()
         {
-            return View("index");
+            return View();
         }
 
         public IActionResult ContasAReceber()
         {
-            return View("index");
+            return View();
         }
     }
 }

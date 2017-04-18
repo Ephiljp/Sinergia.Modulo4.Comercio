@@ -46,12 +46,14 @@
         var els = this;
         var defaults = {
             showWeekends: true,
+            showToday: true,
             toggleProjects: true,
             cellWidth: 20,
             slideWidth: 400,
             kineticScroll: true,
             startDate: false,
             endDate: false,
+            startToday: false,
             behavior: {
                 clickable: false,
                 draggable: true,
@@ -111,8 +113,8 @@
             });
 
             dates = getDates(opts.start, opts.end);
-            addHzHeader(slideDiv, dates, opts.cellWidth, opts.showWeekends);
-            addGrid(slideDiv, opts.data, dates, opts.cellWidth, opts.showWeekends);
+            addHzHeader(slideDiv, dates, opts.cellWidth, opts.showWeekends, opts.showToday, opts.startToday);
+            addGrid(slideDiv, opts.data, dates, opts.cellWidth, opts.showWeekends, opts.showToday);
             addBlockContainers(slideDiv, opts.data);
             addBlocks(slideDiv, opts.data, opts.cellWidth, opts.start);
             div.append(slideDiv);
@@ -123,6 +125,12 @@
             }
             if(opts.kineticScroll && !Modernizr.touch) {
                 kineticScroll(div);
+            }
+            if(opts.startToday) {
+                setTimeout(function () {
+                    var days = DateUtils.daysBetween(opts.start, moment()._d);
+                    slideDiv.scrollLeft( days * opts.cellWidth );
+                },100)
             }
         }
 
@@ -219,7 +227,7 @@
             div.append(headerDiv);
         }
 
-        function addHzHeader(div, dates, cellWidth, showWeekends) {
+        function addHzHeader(div, dates, cellWidth, showWeekends, showToday, startToday) {
             var headerDiv = jQuery("<div>", { "class": "ganttview-hzheader" });
             var monthsDiv = jQuery("<div>", { "class": "ganttview-hzheader-months" });
             var daysDiv = jQuery("<div>", { "class": "ganttview-hzheader-days" });
@@ -237,6 +245,12 @@
                         if (DateUtils.isWeekend(dates[y][m][d]) && showWeekends) {
                             headerDay.addClass("ganttview-weekend");
                         }
+                        if (moment(dates[y][m][d]).isSame(Date.now(), 'day') && showToday) {
+                            headerDay.addClass("ganttview-today");
+                        }
+                        if (moment(dates[y][m][d]).isSame(Date.now(), 'day') && startToday) {
+                            headerDay.addClass("ganttview-startToday");
+                        }
                         daysDiv.append( headerDay.append(dates[y][m][d].getDate()) );
                     }
                 }
@@ -247,7 +261,7 @@
             div.append(headerDiv);
         }
 
-        function addGrid(div, data, dates, cellWidth, showWeekends) {
+        function addGrid(div, data, dates, cellWidth, showWeekends, showToday) {
             var gridDiv = jQuery("<div>", { "class": "ganttview-grid" });
             var rowDiv = jQuery("<div>", { "class": "ganttview-grid-row" });
             for (var y in dates) {
@@ -256,6 +270,9 @@
                         var cellDiv = jQuery("<div>", { "class": "ganttview-grid-row-cell" });
                         if (DateUtils.isWeekend(dates[y][m][d]) && showWeekends) {
                             cellDiv.addClass("ganttview-weekend");
+                        }
+                        if (moment(dates[y][m][d]).isSame(Date.now(), 'day') && showToday) {
+                            cellDiv.addClass("ganttview-today");
                         }
                         rowDiv.append(cellDiv);
                     }
@@ -503,10 +520,6 @@
             if(!block.data("block-data").title) {
                 jQuery("div.ganttview-block-text", block).text( moment.duration(numberOfDays+1,'days').format());
             }
-
-            // Remove top and left properties to avoid incorrect block positioning,
-            // set position to relative to keep blocks relative to scrollbar when scrolling
-            block.css("top", "").css("left", offset + "px");
         }
 
         return {

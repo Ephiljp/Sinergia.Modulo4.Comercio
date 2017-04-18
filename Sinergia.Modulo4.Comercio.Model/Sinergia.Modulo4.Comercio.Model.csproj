@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sinergia.Modulo4.Comercio.Enumerador\Sinergia.Modulo4.Comercio.Enumerador.csproj" />
+  </ItemGroup>
+
+</Project>

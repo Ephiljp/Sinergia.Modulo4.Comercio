@@ -114,5 +114,9 @@
   <ItemGroup>
     <Folder Include="Views\Home\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sinergia.Modulo4.Comercio.Enumerador\Sinergia.Modulo4.Comercio.Enumerador.csproj" />
+    <ProjectReference Include="..\Sinergia.Modulo4.Comercio.Model\Sinergia.Modulo4.Comercio.Model.csproj" />
+  </ItemGroup>
 
 </Project>

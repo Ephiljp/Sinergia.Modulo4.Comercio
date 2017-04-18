@@ -1,18 +1,18 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
-    if (typeof define == "function" && define.amd) { // AMD
+    if (typeof define == 'function' && define.amd) { // AMD
 
-        define("uikit", function(){
+        define('uikit', function(){
 
             var uikit = window.UIkit || core(window, window.jQuery, window.document);
 
             uikit.load = function(res, req, onload, config) {
 
-                var resources = res.split(','), load = [], i, base = (config.config && config.config.uikit && config.config.uikit.base ? config.config.uikit.base : "").replace(/\/+$/g, "");
+                var resources = res.split(','), load = [], i, base = (config.config && config.config.uikit && config.config.uikit.base ? config.config.uikit.base : '').replace(/\/+$/g, '');
 
                 if (!base) {
-                    throw new Error( "Please define base path to UIkit in the requirejs config." );
+                    throw new Error('Please define base path to UIkit in the requirejs config.');
                 }
 
                 for (i = 0; i < resources.length; i += 1) {
@@ -30,7 +30,7 @@
     }
 
     if (!window.jQuery) {
-        throw new Error( "UIkit requires jQuery" );
+        throw new Error('UIkit requires jQuery');
     }
 
     if (window && window.jQuery) {
@@ -44,7 +44,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.27.1';
+    UI.version = '2.27.2';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -161,7 +161,7 @@
                     .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';})
                 );
             } else {
-                return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
+                return (new Function('', 'var json = ' + str + '; return JSON.parse(JSON.stringify(json));'))();
             }
         } catch(e) { return false; }
     };
@@ -327,30 +327,30 @@
 
                 switch(cmd) {
                     case '~':
-                        output.push("for(var $i=0;$i<"+prop+".length;$i++) { var $item = "+prop+"[$i];");
+                        output.push('for(var $i=0;$i<'+prop+'.length;$i++) { var $item = '+prop+'[$i];');
                         openblocks++;
                         break;
                     case ':':
-                        output.push("for(var $key in "+prop+") { var $val = "+prop+"[$key];");
+                        output.push('for(var $key in '+prop+') { var $val = '+prop+'[$key];');
                         openblocks++;
                         break;
                     case '#':
-                        output.push("if("+prop+") {");
+                        output.push('if('+prop+') {');
                         openblocks++;
                         break;
                     case '^':
-                        output.push("if(!"+prop+") {");
+                        output.push('if(!'+prop+') {');
                         openblocks++;
                         break;
                     case '/':
-                        output.push("}");
+                        output.push('}');
                         openblocks--;
                         break;
                     case '!':
-                        output.push("__ret.push("+prop+");");
+                        output.push('__ret.push('+prop+');');
                         break;
                     default:
-                        output.push("__ret.push(escape("+prop+"));");
+                        output.push('__ret.push(escape('+prop+'));');
                         break;
                 }
             } else {
@@ -374,6 +374,10 @@
     UI.Utils.focus = function(element, extra) {
 
         element = $(element);
+
+        if (!element.length) {
+            return element;
+        }
 
         var autofocus = element.find('[autofocus]:first'), tabidx;
 
@@ -413,7 +417,7 @@
         var args = arguments, cmd = command.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), component = cmd[1], method = cmd[2];
 
         if (!UI[component]) {
-            $.error("UIkit component [" + component + "] does not exist.");
+            $.error('UIkit component [' + component + '] does not exist.');
             return this;
         }
 
@@ -531,7 +535,7 @@
                 switch(arguments.length) {
                     case 1:
 
-                        if (typeof arguments[0] === "string" || arguments[0].nodeType || arguments[0] instanceof jQuery) {
+                        if (typeof arguments[0] === 'string' || arguments[0].nodeType || arguments[0] instanceof jQuery) {
                             element = $(arguments[0]);
                         } else {
                             options = arguments[0];
@@ -786,7 +790,7 @@
     }());
 
     // add touch identifier class
-    UI.$html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
+    UI.$html.addClass(UI.support.touch ? 'uk-touch' : 'uk-notouch');
 
     // add uk-hover class on tap to support overlays on touch devices
     if (UI.support.touch) {
@@ -899,7 +903,7 @@
         longTapTimeout = setTimeout(longTap, longTapDelay);
 
         // adds the current touch contact for IE gesture recognition
-        if (gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' ) ) {
+        if (e.originalEvent && e.originalEvent.pointerId && gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' ) ) {
           gesture.addPointer(e.originalEvent.pointerId);
         }
 
@@ -1009,12 +1013,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-margin]", context).each(function() {
+                UI.$('[data-uk-margin]', context).each(function() {
 
                     var ele = UI.$(this);
 
-                    if (!ele.data("stackMargin")) {
-                        UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
+                    if (!ele.data('stackMargin')) {
+                        UI.stackMargin(ele, UI.Utils.options(ele.attr('data-uk-margin')));
                     }
                 });
             });
@@ -1032,20 +1036,20 @@
 
                 UI.$(function() {
                     fn();
-                    UI.$win.on("load", fn);
+                    UI.$win.on('load', fn);
                 });
 
                 return UI.Utils.debounce(fn, 20);
             })());
 
-            this.on("display.uk.check", function(e) {
-                if (this.element.is(":visible")) this.process();
+            this.on('display.uk.check', function(e) {
+                if (this.element.is(':visible')) this.process();
             }.bind(this));
 
             if (this.options.observe) {
 
                 UI.domObserve(this.element, function(e) {
-                    if ($this.element.is(":visible")) $this.process();
+                    if ($this.element.is(':visible')) $this.process();
                 });
             }
 
@@ -1097,7 +1101,7 @@
                 ratio  = (width / iwidth),
                 height = Math.floor(ratio * ele.data('height'));
 
-            ele.css({'height': (width < iwidth) ? height : ele.data('height')});
+            ele.css({height: (width < iwidth) ? height : ele.data('height')});
         };
 
         UI.component('responsiveElement', {
@@ -1109,11 +1113,11 @@
                 // init code
                 UI.ready(function(context) {
 
-                    UI.$("iframe.uk-responsive-width, [data-uk-responsive]", context).each(function() {
+                    UI.$('iframe.uk-responsive-width, [data-uk-responsive]', context).each(function() {
 
                         var ele = UI.$(this), obj;
 
-                        if (!ele.data("responsiveElement")) {
+                        if (!ele.data('responsiveElement')) {
                             obj = UI.responsiveElement(ele, {});
                         }
                     });
@@ -1127,10 +1131,8 @@
                 if (ele.attr('width') && ele.attr('height')) {
 
                     ele.data({
-
-                        'width' : ele.attr('width'),
-                        'height': ele.attr('height')
-
+                        width : ele.attr('width'),
+                        height: ele.attr('height')
                     }).on('display.uk.check', function(){
                         check(ele);
                     });
@@ -1151,7 +1153,6 @@
         }, 15));
 
     })();
-
 
 
     // helper
@@ -1177,8 +1178,8 @@
                 pos    = offset.top + height;
 
                 $ele.data({
-                    'ukMarginPos': pos,
-                    'ukMarginTop': offset.top
+                    ukMarginPos: pos,
+                    ukMarginTop: offset.top
                 });
 
                 if (min === false || (offset.top < min.top) ) {
@@ -1337,12 +1338,12 @@
         boot: function() {
 
             // init code
-            UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
+            UI.$html.on('click.smooth-scroll.uikit', '[data-uk-smooth-scroll]', function(e) {
                 var ele = UI.$(this);
 
-                if (!ele.data("smoothScroll")) {
-                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
-                    ele.trigger("click");
+                if (!ele.data('smoothScroll')) {
+                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr('data-uk-smooth-scroll')));
+                    ele.trigger('click');
                 }
 
                 return false;
@@ -1353,9 +1354,9 @@
 
             var $this = this;
 
-            this.on("click", function(e) {
+            this.on('click', function(e) {
                 e.preventDefault();
-                scrollToElement(UI.$(this.hash).length ? UI.$(this.hash) : UI.$("body"), $this.options);
+                scrollToElement(UI.$(this.hash).length ? UI.$(this.hash) : UI.$('body'), $this.options);
             });
         }
     });
@@ -1379,7 +1380,7 @@
         }
 
         // animate to target, fire callback when done
-        UI.$("html,body").stop().animate({scrollTop: target}, options.duration, options.transition).promise().done(options.complete);
+        UI.$('html,body').stop().animate({scrollTop: target}, options.duration, options.transition).promise().done(options.complete);
     }
 
     UI.Utils.scrollToElement = scrollToElement;
@@ -1407,8 +1408,8 @@
 
         defaults: {
             target     : false,
-            cls        : "uk-scrollspy-inview",
-            initcls    : "uk-scrollspy-init-inview",
+            cls        : 'uk-scrollspy-inview',
+            initcls    : 'uk-scrollspy-init-inview',
             topoffset  : 0,
             leftoffset : 0,
             repeat     : false,
@@ -1418,18 +1419,18 @@
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("scrolling.uk.document", checkScrollSpy);
-            $win.on("load resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
+            $doc.on('scrolling.uk.document', checkScrollSpy);
+            $win.on('load resize orientationchange', UI.Utils.debounce(checkScrollSpy, 50));
 
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-scrollspy]", context).each(function() {
+                UI.$('[data-uk-scrollspy]', context).each(function() {
 
                     var element = UI.$(this);
 
-                    if (!element.data("scrollspy")) {
-                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
+                    if (!element.data('scrollspy')) {
+                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr('data-uk-scrollspy')));
                     }
                 });
             });
@@ -1457,13 +1458,13 @@
                             $this.offset = element.offset();
                             initinview = true;
 
-                            element.trigger("init.uk.scrollspy");
+                            element.trigger('init.uk.scrollspy');
                         }
 
                         element.data('scrollspy-idle', setTimeout(function(){
 
-                            element.addClass("uk-scrollspy-inview").toggleClass(toggle).width();
-                            element.trigger("inview.uk.scrollspy");
+                            element.addClass('uk-scrollspy-inview').toggleClass(toggle).width();
+                            element.trigger('inview.uk.scrollspy');
 
                             element.data('scrollspy-idle', false);
                             element.data('inviewstate', true);
@@ -1480,10 +1481,10 @@
                             element.data('scrollspy-idle', false);
                         }
 
-                        element.removeClass("uk-scrollspy-inview").toggleClass(toggle);
+                        element.removeClass('uk-scrollspy-inview').toggleClass(toggle);
                         element.data('inviewstate', false);
 
-                        element.trigger("outview.uk.scrollspy");
+                        element.trigger('outview.uk.scrollspy');
                     }
 
                     toggleclsIdx = togglecls[toggleclsIdx + 1] ? (toggleclsIdx + 1) : 0;
@@ -1510,28 +1511,28 @@
     UI.component('scrollspynav', {
 
         defaults: {
-            "cls"          : 'uk-active',
-            "closest"      : false,
-            "topoffset"    : 0,
-            "leftoffset"   : 0,
-            "smoothscroll" : false
+            cls          : 'uk-active',
+            closest      : false,
+            topoffset    : 0,
+            leftoffset   : 0,
+            smoothscroll : false
         },
 
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("scrolling.uk.document", checkScrollSpyNavs);
-            $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpyNavs, 50));
+            $doc.on('scrolling.uk.document', checkScrollSpyNavs);
+            $win.on('resize orientationchange', UI.Utils.debounce(checkScrollSpyNavs, 50));
 
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-scrollspy-nav]", context).each(function() {
+                UI.$('[data-uk-scrollspy-nav]', context).each(function() {
 
                     var element = UI.$(this);
 
-                    if (!element.data("scrollspynav")) {
-                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
+                    if (!element.data('scrollspynav')) {
+                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr('data-uk-scrollspy-nav')));
                     }
                 });
             });
@@ -1540,7 +1541,7 @@
         init: function() {
 
             var ids     = [],
-                links   = this.find("a[href^='#']").each(function(){ if(this.getAttribute("href").trim()!=='#') ids.push(this.getAttribute("href")); }),
+                links   = this.find("a[href^='#']").each(function(){ if(this.getAttribute('href').trim()!=='#') ids.push(this.getAttribute('href')); }),
                 targets = UI.$(ids.join(",")),
 
                 clsActive  = this.options.cls,
@@ -1572,12 +1573,12 @@
 
                     if ($this.options.closest) {
                         links.blur().closest(clsClosest).removeClass(clsActive);
-                        navitems = links.filter("a[href='#"+target.attr("id")+"']").closest(clsClosest).addClass(clsActive);
+                        navitems = links.filter("a[href='#"+target.attr('id')+"']").closest(clsClosest).addClass(clsActive);
                     } else {
                         navitems = links.removeClass(clsActive).filter("a[href='#"+target.attr("id")+"']").addClass(clsActive);
                     }
 
-                    $this.element.trigger("inview.uk.scrollspynav", [target, navitems]);
+                    $this.element.trigger('inview.uk.scrollspynav', [target, navitems]);
                 }
             };
 
@@ -1589,7 +1590,7 @@
 
             fn();
 
-            this.element.data("scrollspynav", this);
+            this.element.data('scrollspynav', this);
 
             this.check = fn;
             scrollspynavs.push(this);
@@ -1619,11 +1620,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-toggle]", context).each(function() {
+                UI.$('[data-uk-toggle]', context).each(function() {
                     var ele = UI.$(this);
 
-                    if (!ele.data("toggle")) {
-                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
+                    if (!ele.data('toggle')) {
+                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr('data-uk-toggle')));
                     }
                 });
 
@@ -1643,7 +1644,7 @@
 
             this.aria = (this.options.cls.indexOf('uk-hidden') !== -1);
 
-            this.on("click", function(e) {
+            this.on('click', function(e) {
 
                 if ($this.element.is('a[href="#"]')) {
                     e.preventDefault();
@@ -1738,13 +1739,13 @@
         boot: function() {
 
             // init code
-            UI.$html.on("click.alert.uikit", "[data-uk-alert]", function(e) {
+            UI.$html.on('click.alert.uikit', '[data-uk-alert]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (!ele.data("alert")) {
+                if (!ele.data('alert')) {
 
-                    var alert = UI.alert(ele, UI.Utils.options(ele.attr("data-uk-alert")));
+                    var alert = UI.alert(ele, UI.Utils.options(ele.attr('data-uk-alert')));
 
                     if (UI.$(e.target).is(alert.options.trigger)) {
                         e.preventDefault();
@@ -1758,7 +1759,7 @@
 
             var $this = this;
 
-            this.on("click", this.options.trigger, function(e) {
+            this.on('click', this.options.trigger, function(e) {
                 e.preventDefault();
                 $this.close();
             });
@@ -1766,19 +1767,19 @@
 
         close: function() {
 
-            var element       = this.trigger("close.uk.alert"),
+            var element       = this.trigger('close.uk.alert'),
                 removeElement = function () {
-                    this.trigger("closed.uk.alert").remove();
+                    this.trigger('closed.uk.alert').remove();
                 }.bind(this);
 
             if (this.options.fade) {
-                element.css("overflow", "hidden").css("max-height", element.height()).animate({
-                    "height"         : 0,
-                    "opacity"        : 0,
-                    "padding-top"    : 0,
-                    "padding-bottom" : 0,
-                    "margin-top"     : 0,
-                    "margin-bottom"  : 0
+                element.css('overflow', 'hidden').css("max-height", element.height()).animate({
+                    height         : 0,
+                    opacity        : 0,
+                    paddingTop    : 0,
+                    paddingBottom : 0,
+                    marginTop     : 0,
+                    marginBottom  : 0
                 }, this.options.duration, removeElement);
             } else {
                 removeElement();
@@ -1803,17 +1804,17 @@
         boot: function() {
 
             // init code
-            UI.$html.on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
+            UI.$html.on('click.buttonradio.uikit', '[data-uk-button-radio]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (!ele.data("buttonRadio")) {
+                if (!ele.data('buttonRadio')) {
 
-                    var obj    = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio"))),
+                    var obj    = UI.buttonRadio(ele, UI.Utils.options(ele.attr('data-uk-button-radio'))),
                         target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
-                        target.trigger("click");
+                        target.trigger('click');
                     }
                 }
             });
@@ -1826,7 +1827,7 @@
             // Init ARIA
             this.find($this.options.target).attr('aria-checked', 'false').filter('.' + $this.options.activeClass).attr('aria-checked', 'true');
 
-            this.on("click", this.options.target, function(e) {
+            this.on('click', this.options.target, function(e) {
 
                 var ele = UI.$(this);
 
@@ -1839,7 +1840,7 @@
                 $this.find($this.options.target).not(ele).attr('aria-checked', 'false');
                 ele.attr('aria-checked', 'true');
 
-                $this.trigger("change.uk.button", [ele]);
+                $this.trigger('change.uk.button', [ele]);
             });
 
         },
@@ -1858,16 +1859,16 @@
 
         boot: function() {
 
-            UI.$html.on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
+            UI.$html.on('click.buttoncheckbox.uikit', '[data-uk-button-checkbox]', function(e) {
                 var ele = UI.$(this);
 
-                if (!ele.data("buttonCheckbox")) {
+                if (!ele.data('buttonCheckbox')) {
 
-                    var obj    = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))),
+                    var obj    = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr('data-uk-button-checkbox'))),
                         target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
-                        target.trigger("click");
+                        target.trigger('click');
                     }
                 }
             });
@@ -1880,7 +1881,7 @@
             // Init ARIA
             this.find($this.options.target).attr('aria-checked', 'false').filter('.' + $this.options.activeClass).attr('aria-checked', 'true');
 
-            this.on("click", this.options.target, function(e) {
+            this.on('click', this.options.target, function(e) {
                 var ele = UI.$(this);
 
                 if (ele.is('a[href="#"]')) e.preventDefault();
@@ -1890,7 +1891,7 @@
                 // Update ARIA
                 ele.attr('aria-checked', ele.hasClass($this.options.activeClass));
 
-                $this.trigger("change.uk.button", [ele]);
+                $this.trigger('change.uk.button', [ele]);
             });
 
         },
@@ -1907,13 +1908,13 @@
 
         boot: function() {
 
-            UI.$html.on("click.button.uikit", "[data-uk-button]", function(e) {
+            UI.$html.on('click.button.uikit', '[data-uk-button]', function(e) {
                 var ele = UI.$(this);
 
-                if (!ele.data("button")) {
+                if (!ele.data('button')) {
 
-                    var obj = UI.button(ele, UI.Utils.options(ele.attr("data-uk-button")));
-                    ele.trigger("click");
+                    var obj = UI.button(ele, UI.Utils.options(ele.attr('data-uk-button')));
+                    ele.trigger('click');
                 }
             });
         },
@@ -1925,21 +1926,21 @@
             // Init ARIA
             this.element.attr('aria-pressed', this.element.hasClass("uk-active"));
 
-            this.on("click", function(e) {
+            this.on('click', function(e) {
 
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
 
                 $this.toggle();
-                $this.trigger("change.uk.button", [$this.element.blur().hasClass("uk-active")]);
+                $this.trigger('change.uk.button', [$this.element.blur().hasClass('uk-active')]);
             });
 
         },
 
         toggle: function() {
-            this.element.toggleClass("uk-active");
+            this.element.toggleClass('uk-active');
 
             // Update ARIA
-            this.element.attr('aria-pressed', this.element.hasClass("uk-active"));
+            this.element.attr('aria-pressed', this.element.hasClass('uk-active'));
         }
     });
 
@@ -1951,46 +1952,46 @@
 
     var active = false, hoverIdle, flips = {
         x: {
-            "bottom-left"   : 'bottom-right',
-            "bottom-right"  : 'bottom-left',
-            "bottom-center" : 'bottom-center',
-            "top-left"      : 'top-right',
-            "top-right"     : 'top-left',
-            "top-center"    : 'top-center',
-            "left-top"      : 'right-top',
-            "left-bottom"   : 'right-bottom',
-            "left-center"   : 'right-center',
-            "right-top"     : 'left-top',
-            "right-bottom"  : 'left-bottom',
-            "right-center"  : 'left-center'
+            'bottom-left'   : 'bottom-right',
+            'bottom-right'  : 'bottom-left',
+            'bottom-center' : 'bottom-center',
+            'top-left'      : 'top-right',
+            'top-right'     : 'top-left',
+            'top-center'    : 'top-center',
+            'left-top'      : 'right-top',
+            'left-bottom'   : 'right-bottom',
+            'left-center'   : 'right-center',
+            'right-top'     : 'left-top',
+            'right-bottom'  : 'left-bottom',
+            'right-center'  : 'left-center'
         },
         y: {
-            "bottom-left"   : 'top-left',
-            "bottom-right"  : 'top-right',
-            "bottom-center" : 'top-center',
-            "top-left"      : 'bottom-left',
-            "top-right"     : 'bottom-right',
-            "top-center"    : 'bottom-center',
-            "left-top"      : 'left-bottom',
-            "left-bottom"   : 'left-top',
-            "left-center"   : 'left-center',
-            "right-top"     : 'right-bottom',
-            "right-bottom"  : 'right-top',
-            "right-center"  : 'right-center'
+            'bottom-left'   : 'top-left',
+            'bottom-right'  : 'top-right',
+            'bottom-center' : 'top-center',
+            'top-left'      : 'bottom-left',
+            'top-right'     : 'bottom-right',
+            'top-center'    : 'bottom-center',
+            'left-top'      : 'left-bottom',
+            'left-bottom'   : 'left-top',
+            'left-center'   : 'left-center',
+            'right-top'     : 'right-bottom',
+            'right-bottom'  : 'right-top',
+            'right-center'  : 'right-center'
         },
         xy: {
-            "bottom-left"   : 'top-right',
-            "bottom-right"  : 'top-left',
-            "bottom-center" : 'top-center',
-            "top-left"      : 'bottom-right',
-            "top-right"     : 'bottom-left',
-            "top-center"    : 'bottom-center',
-            "left-top"      : 'right-bottom',
-            "left-bottom"   : 'right-top',
-            "left-center"   : 'right-center',
-            "right-top"     : 'left-bottom',
-            "right-bottom"  : 'left-top',
-            "right-center"  : 'left-center'
+            'bottom-left'   : 'top-right',
+            'bottom-right'  : 'top-left',
+            'bottom-center' : 'top-center',
+            'top-left'      : 'bottom-right',
+            'top-right'     : 'bottom-left',
+            'top-center'    : 'bottom-center',
+            'left-top'      : 'right-bottom',
+            'left-bottom'   : 'right-top',
+            'left-center'   : 'right-center',
+            'right-top'     : 'left-bottom',
+            'right-bottom'  : 'left-top',
+            'right-center'  : 'left-center'
         }
     };
 
@@ -2013,22 +2014,22 @@
 
         boot: function() {
 
-            var triggerevent = UI.support.touch ? "click" : "mouseenter";
+            var triggerevent = UI.support.touch ? 'click' : 'mouseenter';
 
             // init code
-            UI.$html.on(triggerevent+".dropdown.uikit focus", "[data-uk-dropdown]", function(e) {
+            UI.$html.on(triggerevent+'.dropdown.uikit focus pointerdown', '[data-uk-dropdown]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (!ele.data("dropdown")) {
+                if (!ele.data('dropdown')) {
 
-                    var dropdown = UI.dropdown(ele, UI.Utils.options(ele.attr("data-uk-dropdown")));
+                    var dropdown = UI.dropdown(ele, UI.Utils.options(ele.attr('data-uk-dropdown')));
 
-                    if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
+                    if (e.type=='click' || (e.type=='mouseenter' && dropdown.options.mode=='hover')) {
                         dropdown.element.trigger(triggerevent);
                     }
 
-                    if (dropdown.element.find(dropdown.options.dropdownSelector).length) {
+                    if (dropdown.dropdown.length) {
                         e.preventDefault();
                     }
                 }
@@ -2043,6 +2044,10 @@
             this.offsetParent = this.dropdown.parents().filter(function() {
                 return UI.$.inArray(UI.$(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
             }).slice(0,1);
+
+            if (!this.offsetParent.length) {
+                this.offsetParent = this.element;
+            }
 
             this.centered  = this.dropdown.hasClass('uk-dropdown-center');
             this.justified = this.options.justify ? UI.$(this.options.justify) : false;
@@ -2070,15 +2075,15 @@
             this.element.attr('aria-expanded', this.element.hasClass('uk-open'));
             this.dropdown.attr('aria-hidden', 'true');
 
-            if (this.options.mode == "click" || UI.support.touch) {
+            if (this.options.mode == 'click' || UI.support.touch) {
 
-                this.on("click.uk.dropdown", function(e) {
+                this.on('click.uk.dropdown', function(e) {
 
                     var $target = UI.$(e.target);
 
                     if (!$target.parents($this.options.dropdownSelector).length) {
 
-                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible")) ){
+                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(':visible')) ){
                             e.preventDefault();
                         }
 
@@ -2091,7 +2096,7 @@
 
                     } else {
 
-                        if (!$this.dropdown.find(e.target).length || $target.is(".uk-dropdown-close") || $target.parents(".uk-dropdown-close").length) {
+                        if (!$this.dropdown.find(e.target).length || $target.is('.uk-dropdown-close') || $target.parents('.uk-dropdown-close').length) {
                             $this.hide();
                         }
                     }
@@ -2099,7 +2104,7 @@
 
             } else {
 
-                this.on("mouseenter", function(e) {
+                this.on('mouseenter', function(e) {
 
                     $this.trigger('pointerenter.uk.dropdown', [$this]);
 
@@ -2127,7 +2132,7 @@
                         hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
                     }
 
-                }).on("mouseleave", function() {
+                }).on('mouseleave', function() {
 
                     if (hoverIdle) {
                         clearTimeout(hoverIdle);
@@ -2139,7 +2144,7 @@
 
                     $this.trigger('pointerleave.uk.dropdown', [$this]);
 
-                }).on("click", function(e){
+                }).on('click', function(e){
 
                     var $target = UI.$(e.target);
 
@@ -2148,7 +2153,7 @@
                     }
 
                     if (active && active == $this) {
-                        if (!$this.dropdown.find(e.target).length || $target.is(".uk-dropdown-close") || $target.parents(".uk-dropdown-close").length) {
+                        if (!$this.dropdown.find(e.target).length || $target.is('.uk-dropdown-close') || $target.parents('.uk-dropdown-close').length) {
                             $this.hide();
                         }
                         return;
@@ -2165,7 +2170,7 @@
 
         show: function(){
 
-            UI.$html.off("click.outer.dropdown");
+            UI.$html.off('click.outer.dropdown');
 
             if (active && active != this) {
                 active.hide(true);
@@ -2218,11 +2223,11 @@
 
             var $this = this;
 
-            UI.$html.off("click.outer.dropdown");
+            UI.$html.off('click.outer.dropdown');
 
             setTimeout(function() {
 
-                UI.$html.on("click.outer.dropdown", function(e) {
+                UI.$html.on('click.outer.dropdown', function(e) {
 
                     if (hoverIdle) {
                         clearTimeout(hoverIdle);
@@ -2232,7 +2237,7 @@
 
                     if (active == $this && !$this.element.find(e.target).length) {
                         $this.hide(true);
-                        UI.$html.off("click.outer.dropdown");
+                        UI.$html.off('click.outer.dropdown');
                     }
                 });
             }, 10);
@@ -2243,15 +2248,15 @@
             if (!this.dropdown.length) return;
 
             // reset
-            this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack').css({
-                'top-left':'',
-                'left':'',
-                'margin-left' :'',
-                'margin-right':''
+            this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack uk-dropdown-autoflip').css({
+                topLeft :'',
+                left :'',
+                marginLeft :'',
+                marginRight :''
             });
 
             if (this.justified && this.justified.length) {
-                this.dropdown.css("min-width", "");
+                this.dropdown.css('min-width', '');
             }
 
             var $this          = this,
@@ -2266,18 +2271,18 @@
                 dpos           = this.options.pos;
 
             var variants =  {
-                    "bottom-left"   : {top: 0 + pos.height + posoffset, left: 0},
-                    "bottom-right"  : {top: 0 + pos.height + posoffset, left: 0 + pos.width - width},
-                    "bottom-center" : {top: 0 + pos.height + posoffset, left: 0 + pos.width / 2 - width / 2},
-                    "top-left"      : {top: 0 - height - posoffset, left: 0},
-                    "top-right"     : {top: 0 - height - posoffset, left: 0 + pos.width - width},
-                    "top-center"    : {top: 0 - height - posoffset, left: 0 + pos.width / 2 - width / 2},
-                    "left-top"      : {top: 0, left: 0 - width - posoffset},
-                    "left-bottom"   : {top: 0 + pos.height - height, left: 0 - width - posoffset},
-                    "left-center"   : {top: 0 + pos.height / 2 - height / 2, left: 0 - width - posoffset},
-                    "right-top"     : {top: 0, left: 0 + pos.width + posoffset},
-                    "right-bottom"  : {top: 0 + pos.height - height, left: 0 + pos.width + posoffset},
-                    "right-center"  : {top: 0 + pos.height / 2 - height / 2, left: 0 + pos.width + posoffset}
+                    'bottom-left'   : {top: 0 + pos.height + posoffset, left: 0},
+                    'bottom-right'  : {top: 0 + pos.height + posoffset, left: 0 + pos.width - width},
+                    'bottom-center' : {top: 0 + pos.height + posoffset, left: 0 + pos.width / 2 - width / 2},
+                    'top-left'      : {top: 0 - height - posoffset, left: 0},
+                    'top-right'     : {top: 0 - height - posoffset, left: 0 + pos.width - width},
+                    'top-center'    : {top: 0 - height - posoffset, left: 0 + pos.width / 2 - width / 2},
+                    'left-top'      : {top: 0, left: 0 - width - posoffset},
+                    'left-bottom'   : {top: 0 + pos.height - height, left: 0 - width - posoffset},
+                    'left-center'   : {top: 0 + pos.height / 2 - height / 2, left: 0 - width - posoffset},
+                    'right-top'     : {top: 0, left: 0 + pos.width + posoffset},
+                    'right-bottom'  : {top: 0 + pos.height - height, left: 0 + pos.width + posoffset},
+                    'right-center'  : {top: 0 + pos.height / 2 - height / 2, left: 0 + pos.width + posoffset}
                 },
                 css = {},
                 pp;
@@ -2310,6 +2315,7 @@
 
                         pp  = fdpos.split('-');
                         css = variants[fdpos] ? variants[fdpos] : variants['bottom-left'];
+                        dropdown.addClass('uk-dropdown-autoflip');
 
                         // check flipped
                         if (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
@@ -2321,11 +2327,11 @@
             }
 
             if (width > boundarywidth) {
-                dropdown.addClass("uk-dropdown-stack");
+                dropdown.addClass('uk-dropdown-stack');
                 this.trigger('stack.uk.dropdown', [this]);
             }
 
-            dropdown.css(css).css("display", "").addClass('uk-dropdown-'+pp[0]);
+            dropdown.css(css).css('display', '').addClass('uk-dropdown-'+pp[0]);
         },
 
         checkBoundary: function(left, top, width, height, boundarywidth) {
@@ -2358,11 +2364,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-dropdown-overlay]", context).each(function() {
+                UI.$('[data-uk-dropdown-overlay]', context).each(function() {
                     var ele = UI.$(this);
 
-                    if (!ele.data("dropdownOverlay")) {
-                        UI.dropdownOverlay(ele, UI.Utils.options(ele.attr("data-uk-dropdown-overlay")));
+                    if (!ele.data('dropdownOverlay')) {
+                        UI.dropdownOverlay(ele, UI.Utils.options(ele.attr('data-uk-dropdown-overlay')));
                     }
                 });
             });
@@ -2387,7 +2393,7 @@
                     $this.dropdown = dropdown;
 
                     if ($this.justified && $this.justified.length) {
-                        justify($this.overlay.css({'display':'block', 'margin-left':'','margin-right':''}), $this.justified, $this.justified.outerWidth());
+                        justify($this.overlay.css({display:'block', marginLeft:'', marginRight:''}), $this.justified, $this.justified.outerWidth());
                     }
                 },
 
@@ -2457,17 +2463,17 @@
 
             var jwidth = justifyTo.outerWidth();
 
-            ele.css("min-width", jwidth);
+            ele.css('min-width', jwidth);
 
             if (UI.langdirection == 'right') {
 
                 var right1   = boundarywidth - (justifyTo.offset().left + jwidth),
                     right2   = boundarywidth - (ele.offset().left + ele.outerWidth());
 
-                ele.css("margin-right", right1 - right2);
+                ele.css('margin-right', right1 - right2);
 
             } else {
-                ele.css("margin-left", justifyTo.offset().left - offset.left);
+                ele.css('margin-left', justifyTo.offset().left - offset.left);
             }
         }
     }
@@ -2494,11 +2500,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-grid-match]", context).each(function() {
+                UI.$('[data-uk-grid-match]', context).each(function() {
                     var grid = UI.$(this), obj;
 
-                    if (!grid.data("gridMatchHeight")) {
-                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
+                    if (!grid.data('gridMatchHeight')) {
+                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr('data-uk-grid-match')));
                     }
                 });
             });
@@ -2516,7 +2522,7 @@
             UI.$win.on('load resize orientationchange', (function() {
 
                 var fn = function() {
-                    if ($this.element.is(":visible")) $this.match();
+                    if ($this.element.is(':visible')) $this.match();
                 };
 
                 UI.$(function() { fn(); });
@@ -2527,12 +2533,12 @@
             if (this.options.observe) {
 
                 UI.domObserve(this.element, function(e) {
-                    if ($this.element.is(":visible")) $this.match();
+                    if ($this.element.is(':visible')) $this.match();
                 });
             }
 
-            this.on("display.uk.check", function(e) {
-                if(this.element.is(":visible")) this.match();
+            this.on('display.uk.check', function(e) {
+                if(this.element.is(':visible')) this.match();
             }.bind(this));
 
             grids.push(this);
@@ -2540,7 +2546,7 @@
 
         match: function() {
 
-            var firstvisible = this.columns.filter(":visible:first");
+            var firstvisible = this.columns.filter(':visible:first');
 
             if (!firstvisible.length) return;
 
@@ -2573,11 +2579,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-grid-margin]", context).each(function() {
+                UI.$('[data-uk-grid-margin]', context).each(function() {
                     var grid = UI.$(this), obj;
 
-                    if (!grid.data("gridMargin")) {
-                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
+                    if (!grid.data('gridMargin')) {
+                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr('data-uk-grid-margin')));
                     }
                 });
             });
@@ -2597,7 +2603,7 @@
 
     var active = false, activeCount = 0, $html = UI.$html, body;
 
-    UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
+    UI.$win.on('resize orientationchange', UI.Utils.debounce(function(){
         UI.$('.uk-modal.uk-open').each(function(){
             return UI.$(this).data('modal') && UI.$(this).data('modal').resize();
         });
@@ -2625,18 +2631,18 @@
 
             var $this = this;
 
-            this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
-            this.dialog     = this.find(".uk-modal-dialog");
+            this.paddingdir = 'padding-' + (UI.langdirection == 'left' ? 'right':'left');
+            this.dialog     = this.find('.uk-modal-dialog');
 
             this.active     = false;
 
             // Update ARIA
-            this.element.attr('aria-hidden', this.element.hasClass("uk-open"));
+            this.element.attr('aria-hidden', this.element.hasClass('uk-open'));
 
-            this.on("click", ".uk-modal-close", function(e) {
+            this.on('click', '.uk-modal-close', function(e) {
                 e.preventDefault();
                 $this.hide();
-            }).on("click", function(e) {
+            }).on('click', function(e) {
 
                 var target = UI.$(e.target);
 
@@ -2649,7 +2655,7 @@
         },
 
         toggle: function() {
-            return this[this.isActive() ? "hide" : "show"]();
+            return this[this.isActive() ? 'hide' : 'show']();
         },
 
         show: function() {
@@ -2664,7 +2670,7 @@
                 active.hide(true);
             }
 
-            this.element.removeClass("uk-open").show();
+            this.element.removeClass('uk-open').show();
             this.resize(true);
 
             if (this.options.modal) {
@@ -2680,18 +2686,18 @@
                 this.element.one(UI.support.transition.end, function(){
                     $this.hasTransitioned = true;
                     UI.Utils.focus($this.dialog, 'a[href]');
-                }).addClass("uk-open");
+                }).addClass('uk-open');
             } else {
-                this.element.addClass("uk-open");
+                this.element.addClass('uk-open');
                 UI.Utils.focus(this.dialog, 'a[href]');
             }
 
-            $html.addClass("uk-modal-page").height(); // force browser engine redraw
+            $html.addClass('uk-modal-page').height(); // force browser engine redraw
 
             // Update ARIA
             this.element.attr('aria-hidden', 'false');
 
-            this.element.trigger("show.uk.modal");
+            this.element.trigger('show.uk.modal');
 
             UI.Utils.checkDisplay(this.dialog, true);
 
@@ -2706,7 +2712,7 @@
 
                 this.one(UI.support.transition.end, function() {
                     $this._hide();
-                }).removeClass("uk-open");
+                }).removeClass('uk-open');
 
             } else {
 
@@ -2734,9 +2740,9 @@
                 pad = parseInt(this.dialog.css('margin-top'), 10) + parseInt(this.dialog.css('margin-bottom'), 10);
 
                 if ((dh + pad) < window.innerHeight) {
-                    this.dialog.css({'top': (window.innerHeight/2 - dh/2) - pad });
+                    this.dialog.css({top: (window.innerHeight/2 - dh/2) - pad });
                 } else {
-                    this.dialog.css({'top': ''});
+                    this.dialog.css({top: ''});
                 }
             }
         },
@@ -2756,8 +2762,8 @@
                 h      = wh - 2*(offset < 20 ? 20:offset) - dh;
 
                 scrollable.css({
-                    'max-height': (h < this.options.minScrollHeight ? '':h),
-                    'height':''
+                    maxHeight: (h < this.options.minScrollHeight ? '':h),
+                    height:''
                 });
 
                 return true;
@@ -2798,16 +2804,16 @@
         boot: function() {
 
             // init code
-            UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
+            UI.$html.on('click.modal.uikit', '[data-uk-modal]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (ele.is("a")) {
+                if (ele.is('a')) {
                     e.preventDefault();
                 }
 
-                if (!ele.data("modalTrigger")) {
-                    var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
+                if (!ele.data('modalTrigger')) {
+                    var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr('data-uk-modal')));
                     modal.show();
                 }
 
@@ -2828,7 +2834,7 @@
             var $this = this;
 
             this.options = UI.$.extend({
-                "target": $this.element.is("a") ? $this.element.attr("href") : false
+                target: $this.element.is('a') ? $this.element.attr('href') : false
             }, this.options);
 
             this.modal = UI.modal(this.options.target, this.options);
@@ -2839,17 +2845,17 @@
             });
 
             //methods
-            this.proxy(this.modal, "show hide isActive");
+            this.proxy(this.modal, 'show hide isActive');
         }
     });
 
     UI.modal.dialog = function(content, options) {
 
-        var modal = UI.modal(UI.$(UI.modal.dialog.template).appendTo("body"), options);
+        var modal = UI.modal(UI.$(UI.modal.dialog.template).appendTo('body'), options);
 
-        modal.on("hide.uk.modal", function(){
+        modal.on('hide.uk.modal', function(){
             if (modal.persist) {
-                modal.persist.appendTo(modal.persist.data("modalPersistParent"));
+                modal.persist.appendTo(modal.persist.data('modalPersistParent'));
                 modal.persist = false;
             }
             modal.element.remove();
@@ -2920,11 +2926,11 @@
 
         input = modal.element.find("input[type='text']").val(value || '').on('keyup', function(e){
             if (e.keyCode == 13) {
-                modal.element.find(".js-modal-ok").trigger('click');
+                modal.element.find('.js-modal-ok').trigger('click');
             }
         });
 
-        modal.element.find(".js-modal-ok").on("click", function(){
+        modal.element.find('.js-modal-ok').on('click', function(){
             if (onsubmit(input.val())!==false){
                 modal.hide();
             }
@@ -2944,12 +2950,10 @@
         return modal.show();
     };
 
-
     UI.modal.labels = {
-        'Ok': 'Ok',
-        'Cancel': 'Cancel'
+        Ok: 'Ok',
+        Cancel: 'Cancel'
     };
-
 
     // helper functions
     function setContent(content, modal){
@@ -2963,7 +2967,7 @@
 
             if(content.parent().length) {
                 modal.persist = content;
-                modal.persist.data("modalPersistParent", content.parent());
+                modal.persist.data('modalPersistParent', content.parent());
             }
         }else if (typeof content === 'string' || typeof content === 'number') {
                 // just insert the data as innerHTML
@@ -2987,8 +2991,8 @@
     UI.component('nav', {
 
         defaults: {
-            toggle: ">li.uk-parent > a[href='#']",
-            lists: ">li.uk-parent > ul",
+            toggle: '>li.uk-parent > a[href="#"]',
+            lists: '>li.uk-parent > ul',
             multiple: false
         },
 
@@ -2997,11 +3001,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-nav]", context).each(function() {
+                UI.$('[data-uk-nav]', context).each(function() {
                     var nav = UI.$(this);
 
-                    if (!nav.data("nav")) {
-                        var obj = UI.nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
+                    if (!nav.data('nav')) {
+                        var obj = UI.nav(nav, UI.Utils.options(nav.attr('data-uk-nav')));
                     }
                 });
             });
@@ -3011,22 +3015,22 @@
 
             var $this = this;
 
-            this.on("click.uk.nav", this.options.toggle, function(e) {
+            this.on('click.uk.nav', this.options.toggle, function(e) {
                 e.preventDefault();
                 var ele = UI.$(this);
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
             });
 
-            this.update(true);
+            this.update();
 
             UI.domObserve(this.element, function(e) {
-                if ($this.element.find(this.options.lists).not('[role]').length) {
+                if ($this.element.find($this.options.lists).not('[role]').length) {
                     $this.update();
                 }
             });
         },
 
-        update: function(init) {
+        update: function() {
 
             var $this = this;
 
@@ -3111,15 +3115,16 @@
 
     function getHeight(ele) {
 
-        var $ele = UI.$(ele), height = "auto";
+        var $ele = UI.$(ele), height = 'auto';
 
-        if ($ele.is(":visible")) {
+        if ($ele.is(':visible')) {
             height = $ele.outerHeight();
         } else {
+
             var tmp = {
-                position: $ele.css("position"),
-                visibility: $ele.css("visibility"),
-                display: $ele.css("display")
+                position: $ele.css('position'),
+                visibility: $ele.css('visibility'),
+                display: $ele.css('display')
             };
 
             height = $ele.css({position: 'absolute', visibility: 'hidden', display: 'block'}).outerHeight();
@@ -3161,12 +3166,12 @@
             scrollpos = {x: window.pageXOffset, y: window.pageYOffset};
 
             bar.attr('mode', options.mode);
-            element.addClass("uk-active");
+            element.addClass('uk-active');
 
-            $body.css({width: window.innerWidth - scrollbarwidth, height: window.innerHeight}).addClass("uk-offcanvas-page");
+            $body.css({width: window.innerWidth - scrollbarwidth, height: window.innerHeight}).addClass('uk-offcanvas-page');
 
             if (options.mode == 'push' || options.mode == 'reveal') {
-                $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir));
+                $body.css((rtl ? 'margin-right' : 'margin-left'), (rtl ? -1 : 1) * (bar.outerWidth() * dir));
             }
 
             if (options.mode == 'reveal') {
@@ -3176,7 +3181,7 @@
             $html.css('margin-top', scrollpos.y * -1).width(); // .width() - force redraw
 
 
-            bar.addClass("uk-offcanvas-bar-show");
+            bar.addClass('uk-offcanvas-bar-show');
 
             this._initElement(element);
 
@@ -3189,14 +3194,14 @@
         hide: function(force) {
 
             var $body = UI.$('body'),
-                panel = UI.$(".uk-offcanvas.uk-active"),
-                rtl   = (UI.langdirection == "right"),
-                bar   = panel.find(".uk-offcanvas-bar:first"),
+                panel = UI.$('.uk-offcanvas.uk-active'),
+                rtl   = (UI.langdirection == 'right'),
+                bar   = panel.find('.uk-offcanvas-bar:first'),
                 finalize = function() {
-                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
-                    panel.removeClass("uk-active");
+                    $body.removeClass('uk-offcanvas-page').css({width: '', height: '', marginLeft: '', marginRight: ''});
+                    panel.removeClass('uk-active');
 
-                    bar.removeClass("uk-offcanvas-bar-show");
+                    bar.removeClass('uk-offcanvas-bar-show');
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
                     bar.trigger('hide.uk.offcanvas', [panel, bar]);
@@ -3247,7 +3252,7 @@
                 Offcanvas.hide();
             });
 
-            element.on('click', "a[href*='#']", function(e){
+            element.on('click', 'a[href*="#"]', function(e){
 
                 var link = UI.$(this),
                     href = link.attr('href');
@@ -3339,7 +3344,7 @@
 
         defaults: {
             connect   : false,
-            toggle    : ">*",
+            toggle    : '>*',
             active    : 0,
             animation : false,
             duration  : 200,
@@ -3353,11 +3358,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-switcher]", context).each(function() {
+                UI.$('[data-uk-switcher]', context).each(function() {
                     var switcher = UI.$(this);
 
-                    if (!switcher.data("switcher")) {
-                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
+                    if (!switcher.data('switcher')) {
+                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr('data-uk-switcher')));
                     }
                 });
             });
@@ -3418,7 +3423,7 @@
             this.connect.children().removeClass('uk-active').attr('aria-hidden', 'true');
 
             var toggles = this.find(this.options.toggle),
-                active  = toggles.filter(".uk-active");
+                active  = toggles.filter('.uk-active');
 
             if (active.length) {
                 this.show(active, false);
@@ -3441,18 +3446,16 @@
                 return;
             }
 
+            var toggles = this.find(this.options.toggle);
+
             if (isNaN(tab)) {
                 tab = UI.$(tab);
             } else {
-
-                var toggles = this.find(this.options.toggle);
-
                 tab = tab < 0 ? toggles.length-1 : tab;
                 tab = toggles.eq(toggles[tab] ? tab : 0);
             }
 
             var $this     = this,
-                toggles   = this.find(this.options.toggle),
                 active    = UI.$(tab),
                 animation = Animations[this.options.animation] || function(current, next) {
 
@@ -3658,12 +3661,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-tab]", context).each(function() {
+                UI.$('[data-uk-tab]', context).each(function() {
 
                     var tab = UI.$(this);
 
-                    if (!tab.data("tab")) {
-                        var obj = UI.tab(tab, UI.Utils.options(tab.attr("data-uk-tab")));
+                    if (!tab.data('tab')) {
+                        var obj = UI.tab(tab, UI.Utils.options(tab.attr('data-uk-tab')));
                     }
                 });
             });
@@ -3675,7 +3678,7 @@
 
             this.current = false;
 
-            this.on("click.uk.tab", this.options.target, function(e) {
+            this.on('click.uk.tab', this.options.target, function(e) {
 
                 e.preventDefault();
 
@@ -3685,9 +3688,9 @@
 
                 var current = $this.find($this.options.target).not(this);
 
-                current.removeClass("uk-active").blur();
+                current.removeClass('uk-active').blur();
 
-                $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active"), $this.current]);
+                $this.trigger('change.uk.tab', [UI.$(this).addClass('uk-active'), $this.current]);
 
                 $this.current = UI.$(this);
 
@@ -3709,7 +3712,7 @@
             this.responsivetab.lst      = this.responsivetab.dropdown.find('ul');
             this.responsivetab.caption  = this.responsivetab.find('a:first');
 
-            if (this.element.hasClass("uk-tab-bottom")) this.responsivetab.dropdown.addClass("uk-dropdown-up");
+            if (this.element.hasClass('uk-tab-bottom')) this.responsivetab.dropdown.addClass('uk-dropdown-up');
 
             // handle click
             this.responsivetab.lst.on('click.uk.tab', 'a', function(e) {
@@ -3730,29 +3733,30 @@
 
             // init UIkit components
             if (this.options.connect) {
+                
                 this.switcher = UI.switcher(this.element, {
-                    'toggle'    : '>li:not(.uk-tab-responsive)',
-                    'connect'   : this.options.connect,
-                    'active'    : this.options.active,
-                    'animation' : this.options.animation,
-                    'duration'  : this.options.duration,
-                    'swiping'   : this.options.swiping
+                    toggle    : '>li:not(.uk-tab-responsive)',
+                    connect   : this.options.connect,
+                    active    : this.options.active,
+                    animation : this.options.animation,
+                    duration  : this.options.duration,
+                    swiping   : this.options.swiping
                 });
             }
 
-            UI.dropdown(this.responsivetab, {"mode": "click", "preventflip": "y"});
+            UI.dropdown(this.responsivetab, {mode: 'click', preventflip: 'y'});
 
             // init
-            $this.trigger("change.uk.tab", [this.element.find(this.options.target).not('.uk-tab-responsive').filter('.uk-active')]);
+            $this.trigger('change.uk.tab', [this.element.find(this.options.target).not('.uk-tab-responsive').filter('.uk-active')]);
 
             this.check();
 
             UI.$win.on('resize orientationchange', UI.Utils.debounce(function(){
-                if ($this.element.is(":visible"))  $this.check();
+                if ($this.element.is(':visible'))  $this.check();
             }, 100));
 
             this.on('display.uk.check', function(){
-                if ($this.element.is(":visible"))  $this.check();
+                if ($this.element.is(':visible'))  $this.check();
             });
         },
 
@@ -3789,7 +3793,8 @@
 
                         if (!item.hasClass('uk-disabled')) {
 
-                            clone = item[0].outerHTML.replace('<a ', '<a data-index="'+i+'" ');
+                            clone = UI.$(item[0].outerHTML);
+                            clone.find('a').data('index', i);
 
                             this.responsivetab.lst.append(clone);
                         }
@@ -3820,12 +3825,12 @@
             // auto init
             UI.ready(function(context) {
 
-                UI.$("[data-uk-cover]", context).each(function(){
+                UI.$('[data-uk-cover]', context).each(function(){
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("cover")) {
-                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-uk-cover")));
+                    if(!ele.data('cover')) {
+                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr('data-uk-cover')));
                     }
                 });
             });
@@ -3839,8 +3844,8 @@
                 this.check();
             }.bind(this), 100));
 
-            this.on("display.uk.check", function(e) {
-                if(this.element.is(":visible")) this.check();
+            this.on('display.uk.check', function(e) {
+                if (this.element.is(':visible')) this.check();
             }.bind(this));
 
             this.check();
@@ -3850,19 +3855,14 @@
                 var src = this.element.attr('src');
 
                 this.element.attr('src', '').on('load', function(){
-
                     this.contentWindow.postMessage('{ "event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
-
                 }).attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join(''));
             }
         },
 
         check: function() {
 
-            this.element.css({
-                width  : '',
-                height : ''
-            });
+            this.element.css({ width  : '', height : '' });
 
             this.dimension = {w: this.element.width(), h: this.element.height()};
 
@@ -3874,7 +3874,7 @@
                 this.dimension.h = this.element.attr('height');
             }
 
-            this.ratio     = this.dimension.w / this.dimension.h;
+            this.ratio = this.dimension.w / this.dimension.h;
 
             var w = this.parent.width(), h = this.parent.height(), width, height;
 
@@ -3891,16 +3891,13 @@
                 height = Math.ceil(w / this.ratio);
             }
 
-            this.element.css({
-                'width'  : width,
-                'height' : height
-            });
+            this.element.css({ width  : width, height : height });
         }
     });
 
 })(UIkit);
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
     var component;
 
@@ -3908,8 +3905,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-accordion", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-accordion', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -3937,11 +3934,11 @@
 
                 setTimeout(function(){
 
-                    UI.$("[data-uk-accordion]", context).each(function(){
+                    UI.$('[data-uk-accordion]', context).each(function(){
 
                         var ele = UI.$(this);
 
-                        if (!ele.data("accordion")) {
+                        if (!ele.data('accordion')) {
                             UI.accordion(ele, UI.Utils.options(ele.attr('data-uk-accordion')));
                         }
                     });
@@ -4065,9 +4062,9 @@
         } else {
 
             var tmp = {
-                position   : $ele.css("position"),
-                visibility : $ele.css("visibility"),
-                display    : $ele.css("display")
+                position   : $ele.css('position'),
+                visibility : $ele.css('visibility'),
+                display    : $ele.css('display')
             };
 
             height = $ele.css({position: 'absolute', visibility: 'hidden', display: 'block'}).outerHeight();
@@ -4081,7 +4078,7 @@
     return UI.accordion;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -4090,8 +4087,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-autocomplete", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-autocomplete', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -4128,17 +4125,17 @@
         boot: function() {
 
             // init code
-            UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
+            UI.$html.on('focus.autocomplete.uikit', '[data-uk-autocomplete]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (!ele.data("autocomplete")) {
-                    UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
+                if (!ele.data('autocomplete')) {
+                    UI.autocomplete(ele, UI.Utils.options(ele.attr('data-uk-autocomplete')));
                 }
             });
 
             // register outer click for autocompletes
-            UI.$html.on("click.autocomplete.uikit", function(e) {
+            UI.$html.on('click.autocomplete.uikit', function(e) {
                 if (active && e.target!=active.input[0]) active.hide();
             });
         },
@@ -4205,15 +4202,15 @@
                     }
 
                 },
-                
+
                 keyup: trigger
             });
 
-            this.dropdown.on("click", ".uk-autocomplete-results > *", function(){
+            this.dropdown.on('click', '.uk-autocomplete-results > *', function(){
                 $this.select();
             });
 
-            this.dropdown.on("mouseover", ".uk-autocomplete-results > *", function(){
+            this.dropdown.on('mouseover', '.uk-autocomplete-results > *', function(){
                 $this.pick(UI.$(this));
             });
 
@@ -4286,7 +4283,7 @@
 
             var data = this.selected.data();
 
-            this.trigger("selectitem.uk.autocomplete", [data, this]);
+            this.trigger('selectitem.uk.autocomplete', [data, this]);
 
             if (data.value) {
                 this.input.val(data.value).trigger('change');
@@ -4300,7 +4297,7 @@
             if (this.visible) return;
 
             this.visible = true;
-            this.element.addClass("uk-open");
+            this.element.addClass('uk-open');
 
             if (active && active!==this) {
                 active.hide();
@@ -4317,7 +4314,7 @@
         hide: function() {
             if (!this.visible) return;
             this.visible = false;
-            this.element.removeClass("uk-open");
+            this.element.removeClass('uk-open');
 
             if (active === this) {
                 active = false;
@@ -4409,7 +4406,7 @@
 
             } else if(data && data.length) {
 
-                this.dropdown.append(this.template({"items":data}));
+                this.dropdown.append(this.template({items:data}));
                 this.show();
 
                 this.trigger('show.uk.autocomplete');
@@ -4795,7 +4792,7 @@
 
     return UI.datepicker;
 });
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -4804,8 +4801,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-form-password", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-form-password', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -4817,22 +4814,22 @@
     UI.component('formPassword', {
 
         defaults: {
-            "lblShow": "Show",
-            "lblHide": "Hide"
+            lblShow: 'Show',
+            lblHide: 'Hide'
         },
 
         boot: function() {
             // init code
-            UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
+            UI.$html.on('click.formpassword.uikit', '[data-uk-form-password]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (!ele.data("formPassword")) {
+                if (!ele.data('formPassword')) {
 
                     e.preventDefault();
 
-                    UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
-                    ele.trigger("click");
+                    UI.formPassword(ele, UI.Utils.options(ele.attr('data-uk-form-password')));
+                    ele.trigger('click');
                 }
             });
         },
@@ -4841,29 +4838,29 @@
 
             var $this = this;
 
-            this.on("click", function(e) {
+            this.on('click', function(e) {
 
                 e.preventDefault();
 
                 if($this.input.length) {
-                    var type = $this.input.attr("type");
-                    $this.input.attr("type", type=="text" ? "password":"text");
-                    $this.element.html($this.options[type=="text" ? "lblShow":"lblHide"]);
+                    var type = $this.input.attr('type');
+                    $this.input.attr('type', type=='text' ? 'password':'text');
+                    $this.element.html($this.options[type=='text' ? 'lblShow':'lblHide']);
                 }
             });
 
-            this.input = this.element.next("input").length ? this.element.next("input") : this.element.prev("input");
-            this.element.html(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
+            this.input = this.element.next('input').length ? this.element.next('input') : this.element.prev('input');
+            this.element.html(this.options[this.input.is('[type="password"]') ? 'lblShow':'lblHide']);
 
 
-            this.element.data("formPassword", this);
+            this.element.data('formPassword', this);
         }
     });
 
     return UI.formPassword;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -4872,8 +4869,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-form-select", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-form-select', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -4885,20 +4882,20 @@
     UI.component('formSelect', {
 
         defaults: {
-            'target': '>span:first',
-            'activeClass': 'uk-active'
+            target: '>span:first',
+            activeClass: 'uk-active'
         },
 
         boot: function() {
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-form-select]", context).each(function(){
+                UI.$('[data-uk-form-select]', context).each(function(){
 
                     var ele = UI.$(this);
 
-                    if (!ele.data("formSelect")) {
-                        UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
+                    if (!ele.data('formSelect')) {
+                        UI.formSelect(ele, UI.Utils.options(ele.attr('data-uk-form-select')));
                     }
                 });
             });
@@ -4949,7 +4946,7 @@
     return UI.formSelect;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -4958,8 +4955,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-grid", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-grid', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -4989,7 +4986,7 @@
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("grid")) {
+                    if(!ele.data('grid')) {
                         UI.grid(ele, UI.Utils.options(ele.attr('data-uk-grid')));
                     }
                 });
@@ -5038,7 +5035,7 @@
             }.bind(this), 100));
 
             this.on('display.uk.check', function(){
-                if ($this.element.is(":visible"))  $this.update();
+                if ($this.element.is(':visible'))  $this.update();
             });
 
             UI.domObserve(this.element, function(e) {
@@ -5062,9 +5059,9 @@
             }
 
             css = {
-                'position'   : 'absolute',
-                'box-sizing' : 'border-box',
-                'width'      : this.options.colwidth == 'auto' ? '' : this.options.colwidth
+                position  : 'absolute',
+                boxSizing : 'border-box',
+                width     : this.options.colwidth == 'auto' ? '' : this.options.colwidth
             };
 
             if (this.options.gutter) {
@@ -5116,12 +5113,12 @@
                 }
 
                 posi = {
-                    "ele"    : item,
-                    "top"    : top,
-                    "width"  : width,
-                    "height" : height,
-                    "aY"     : (top  + height),
-                    "aX"     : (left + width)
+                    ele    : item,
+                    top    : top,
+                    width  : width,
+                    height : height,
+                    aY     : (top  + height),
+                    aX     : (left + width)
                 };
 
                 posi[$this.origin] = left;
@@ -5490,7 +5487,7 @@
     }
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -5499,8 +5496,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) { // AMD
-        define("uikit-lightbox", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) { // AMD
+        define('uikit-lightbox', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -5531,12 +5528,12 @@
 
                 var link = UI.$(this);
 
-                if (!link.data("lightbox")) {
+                if (!link.data('lightbox')) {
 
-                    UI.lightbox(link, UI.Utils.options(link.attr("data-uk-lightbox")));
+                    UI.lightbox(link, UI.Utils.options(link.attr('data-uk-lightbox')));
                 }
 
-                link.data("lightbox").show(link);
+                link.data('lightbox').show(link);
             });
 
             // keyboard navigation
@@ -5567,20 +5564,17 @@
 
             if (this.element && this.element.length) {
 
-                var domSiblings  = this.options.group ? UI.$([
-                    '[data-uk-lightbox*="'+this.options.group+'"]',
-                    "[data-uk-lightbox*='"+this.options.group+"']"
-                ].join(',')) : this.element;
+                var domSiblings  = this.options.group ? UI.$('[data-uk-lightbox*="'+this.options.group+'"]') : this.element;
 
                 domSiblings.each(function() {
 
                     var ele = UI.$(this);
 
                     siblings.push({
-                        'source': ele.attr('href'),
-                        'title' : ele.attr('data-title') || ele.attr('title'),
-                        'type'  : ele.attr("data-lightbox-type") || 'auto',
-                        'link'  : ele
+                        source : ele.attr('href'),
+                        title  : ele.attr('data-title') || ele.attr('title'),
+                        type   : ele.attr("data-lightbox-type") || 'auto',
+                        link   : ele
                     });
                 });
 
@@ -5697,7 +5691,7 @@
                 top       : 0,
                 left      : 0,
                 width     : '100%',
-                'max-width' : $this.modal.dialog.css('max-width'),
+                maxWidth  : $this.modal.dialog.css('max-width'),
                 padding   : $this.modal.dialog.css('padding'),
                 margin    : $this.modal.dialog.css('margin')
             }), maxwidth, maxheight, w = data.meta.width, h = data.meta.height;
@@ -5747,11 +5741,11 @@
 
             this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, duration, 'swing', function() {
                 $this.modal.loader.addClass('uk-hidden');
-                $this.modal.content.css({width:''}).animate({'opacity': 1}, function() {
+                $this.modal.content.css({width:''}).animate({opacity: 1}, function() {
                     $this.modal.closer.removeClass('uk-hidden');
                 });
 
-                $this.modal.data({'mwidth': w, 'mheight': h});
+                $this.modal.data({mwidth: w, mheight: h});
             });
         },
 
@@ -5771,7 +5765,7 @@
 
         init: function(lightbox) {
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on('showitem.uk.lightbox', function(e, data){
 
                 if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
 
@@ -5811,7 +5805,7 @@
         }
     });
 
-    UI.plugin("lightbox", "youtube", {
+    UI.plugin('lightbox', 'youtube', {
 
         init: function(lightbox) {
 
@@ -5819,7 +5813,7 @@
                 youtubeRegExpShort = /youtu\.be\/(.*)/;
 
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on('showitem.uk.lightbox', function(e, data){
 
                 var id, matches, resolve = function(id, width, height) {
 
@@ -5882,14 +5876,14 @@
     });
 
 
-    UI.plugin("lightbox", "vimeo", {
+    UI.plugin('lightbox', 'vimeo', {
 
         init: function(lightbox) {
 
             var regex = /(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/, matches;
 
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on('showitem.uk.lightbox', function(e, data){
 
                 var id, resolve = function(id, width, height) {
 
@@ -5931,11 +5925,11 @@
         }
     });
 
-    UI.plugin("lightbox", "video", {
+    UI.plugin('lightbox', 'video', {
 
         init: function(lightbox) {
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on('showitem.uk.lightbox', function(e, data){
 
 
                 var resolve = function(source, width, height) {
@@ -5977,11 +5971,11 @@
     });
 
 
-    UIkit.plugin("lightbox", "iframe", {
+    UIkit.plugin('lightbox', 'iframe', {
 
         init: function (lightbox) {
 
-            lightbox.on("showitem.uk.lightbox", function (e, data) {
+            lightbox.on('showitem.uk.lightbox', function (e, data) {
 
                 var resolve = function (source, width, height) {
 
@@ -6029,15 +6023,15 @@
         modal.modal   = UI.modal(modal, {modal:false});
 
         // next / previous
-        modal.on("swipeRight swipeLeft", function(e) {
+        modal.on('swipeRight swipeLeft', function(e) {
             modal.lightbox[e.type=='swipeLeft' ? 'next':'previous']();
-        }).on("click", "[data-lightbox-previous], [data-lightbox-next]", function(e){
+        }).on('click', '[data-lightbox-previous], [data-lightbox-next]', function(e){
             e.preventDefault();
             modal.lightbox[UI.$(this).is('[data-lightbox-next]') ? 'next':'previous']();
         });
 
         // destroy content on modal hide
-        modal.on("hide.uk.modal", function(e) {
+        modal.on('hide.uk.modal', function(e) {
             modal.content.html('');
         });
 
@@ -6082,7 +6076,7 @@
     return UI.lightbox;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
@@ -6094,8 +6088,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-nestable", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-nestable', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -6421,7 +6415,7 @@
         },
 
         toggleItem: function(li) {
-            this[li.hasClass(this.options.collapsedClass) ? "expandItem":"collapseItem"](li);
+            this[li.hasClass(this.options.collapsedClass) ? 'expandItem':'collapseItem'](li);
         },
 
         expandItem: function(li) {
@@ -6452,7 +6446,7 @@
         setParent: function(li) {
 
             if (li.children(this.options._listClass).length) {
-                li.addClass("uk-parent");
+                li.addClass('uk-parent');
             }
         },
 
@@ -6708,7 +6702,7 @@
                 }
 
                 if (!parent.children().length) {
-                    if (!parent.data("nestable")) this.unsetParent(parent.parent());
+                    if (!parent.data('nestable')) this.unsetParent(parent.parent());
                 }
 
                 this.checkEmptyList(this.dragRootEl);
@@ -6736,7 +6730,7 @@
     return UI.nestable;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -6745,8 +6739,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-notify", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-notify', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -6785,7 +6779,7 @@
 
         this.options = UI.$.extend({}, Message.defaults, options);
 
-        this.uuid    = UI.Utils.uid("notifymsg");
+        this.uuid    = UI.Utils.uid('notifymsg');
         this.element = UI.$([
 
             '<div class="uk-notify-message">',
@@ -6810,7 +6804,7 @@
         if(!containers[this.options.pos]) {
             containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
 
-                var message = UI.$(this).data("notifyMessage");
+                var message = UI.$(this).data('notifyMessage');
 
                 message.element.trigger('manualclose.uk.notify', [message]);
                 message.close();
@@ -6829,15 +6823,15 @@
 
         show: function() {
 
-            if (this.element.is(":visible")) return;
+            if (this.element.is(':visible')) return;
 
             var $this = this;
 
             containers[this.options.pos].show().prepend(this.element);
 
-            var marginbottom = parseInt(this.element.css("margin-bottom"), 10);
+            var marginbottom = parseInt(this.element.css('margin-bottom'), 10);
 
-            this.element.css({"opacity":0, "margin-top": -1*this.element.outerHeight(), "margin-bottom":0}).animate({"opacity":1, "margin-top": 0, "margin-bottom":marginbottom}, function(){
+            this.element.css({opacity:0, marginTop: -1*this.element.outerHeight(), marginBottom:0}).animate({opacity:1, marginTop:0, marginBottom:marginbottom}, function(){
 
                 if ($this.options.timeout) {
 
@@ -6877,7 +6871,7 @@
             if (instantly) {
                 finalize();
             } else {
-                this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
+                this.element.animate({opacity:0, marginTop: -1* this.element.outerHeight(), marginBottom:0}, function(){
                     finalize();
                 });
             }
@@ -6926,7 +6920,7 @@
     return notify;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -6935,8 +6929,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-slideshow", ["uikit"], function() {
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-slideshow', ['uikit'], function() {
             return component || addon(UIkit);
         });
     }
@@ -6950,9 +6944,9 @@
     UI.component('slideshow', {
 
         defaults: {
-            animation          : "fade",
+            animation          : 'fade',
             duration           : 500,
-            height             : "auto",
+            height             : 'auto',
             start              : 0,
             autoplay           : false,
             autoplayInterval   : 7000,
@@ -6984,8 +6978,8 @@
 
                     var slideshow = UI.$(this);
 
-                    if (!slideshow.data("slideshow")) {
-                        UI.slideshow(slideshow, UI.Utils.options(slideshow.attr("data-uk-slideshow")));
+                    if (!slideshow.data('slideshow')) {
+                        UI.slideshow(slideshow, UI.Utils.options(slideshow.attr('data-uk-slideshow')));
                     }
                 });
             });
@@ -7016,7 +7010,7 @@
 
             this.update();
 
-            this.on("click.uk.slideshow", '[data-uk-slideshow-item]', function(e) {
+            this.on('click.uk.slideshow', '[data-uk-slideshow-item]', function(e) {
 
                 e.preventDefault();
 
@@ -7073,7 +7067,7 @@
             });
 
             this.on('display.uk.check', function(){
-                if ($this.element.is(":visible")) {
+                if ($this.element.is(':visible')) {
 
                     $this.resize();
 
@@ -7085,7 +7079,7 @@
             });
 
             UI.domObserve(this.element, function(e) {
-                if ($this.container.children(':not([data-slide])').length) {
+                if ($this.container.children(':not([data-slideshow-slide])').not('.uk-slideshow-ghost').length) {
                     $this.update(true);
                 }
             });
@@ -7207,7 +7201,7 @@
                 }
 
                 slide.data('processed', ++processed);
-                slide.attr('data-slide', type);
+                slide.attr('data-slideshow-slide', type);
             });
 
             if (processed) {
@@ -7268,8 +7262,8 @@
                         $this.playmedia(nextmedia);
                     }
 
-                    next.addClass("uk-active").attr('aria-hidden', 'false');
-                    current.removeClass("uk-active").attr('aria-hidden', 'true');
+                    next.addClass('uk-active').attr('aria-hidden', 'false');
+                    current.removeClass('uk-active').attr('aria-hidden', 'true');
 
                     $this.animating = false;
                     $this.current   = index;
@@ -7523,7 +7517,7 @@
 
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7532,8 +7526,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-slider", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-slider', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -7685,7 +7679,7 @@
             }
 
             UI.domObserve(this.element, function(e) {
-                if ($this.element.children(':not([data-slide])').length) {
+                if ($this.element.children(':not([data-slider-slide])').length) {
                     $this.update(true);
                 }
             });
@@ -7703,7 +7697,7 @@
 
             this.items.each(function(idx){
 
-                item      = UI.$(this).attr('data-slide', idx);
+                item      = UI.$(this).attr('data-slider-slide', idx);
                 size      = item.css({'left': '', 'width':''})[0].getBoundingClientRect();
                 width     = size.width;
                 cwidth    = item.width();
@@ -7895,9 +7889,9 @@
                         var left = item.data('area');
 
                         itm.css({'left': left}).data({
-                            'left'  : left,
-                            'area'  : (left+itm.data('width')),
-                            'center': (left - ($this.vp/2 - itm.data('cwidth')/2))
+                            left  : left,
+                            area  : (left+itm.data('width')),
+                            center: (left - ($this.vp/2 - itm.data('cwidth')/2))
                         });
 
                         item = itm;
@@ -7929,9 +7923,9 @@
                         var left = item.data('left') - itm.data('width');
 
                         itm.css({'left': left}).data({
-                            'left'  : left,
-                            'area'  : (left+itm.data('width')),
-                            'center': (left - ($this.vp/2 - itm.data('cwidth')/2))
+                            left  : left,
+                            area  : (left+itm.data('width')),
+                            center: (left - ($this.vp/2 - itm.data('cwidth')/2))
                         });
 
                         item = itm;
@@ -8076,7 +8070,7 @@
     return UI.slider;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */
@@ -8088,8 +8082,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-sortable", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-sortable', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -8148,12 +8142,12 @@
             // auto init
             UI.ready(function(context) {
 
-                UI.$("[data-uk-sortable]", context).each(function(){
+                UI.$('[data-uk-sortable]', context).each(function(){
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("sortable")) {
-                        UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
+                    if(!ele.data('sortable')) {
+                        UI.sortable(ele, UI.Utils.options(ele.attr('data-uk-sortable')));
                     }
                 });
             });
@@ -8186,7 +8180,7 @@
                         left   = parseInt(ev.pageX, 10) + offset.left,
                         top    = parseInt(ev.pageY, 10) + offset.top;
 
-                    draggingPlaceholder.css({'left': left, 'top': top });
+                    draggingPlaceholder.css({left: left, top: top });
 
                     // adjust document scrolling
 
@@ -8431,11 +8425,11 @@
                         padding : $current.css('padding')
                     }).data({
                         'mouse-offset': {
-                            'left'   : offset.left - parseInt(ev.pageX, 10),
-                            'top'    : offset.top  - parseInt(ev.pageY, 10)
+                            left : offset.left - parseInt(ev.pageX, 10),
+                            top  : offset.top  - parseInt(ev.pageY, 10)
                         },
-                        'origin' : $this.element,
-                        'index'  : $current.index()
+                        origin : $this.element,
+                        index  : $current.index()
                     }).append($current.html()).appendTo('body');
 
                     draggingPlaceholder.$current  = $current;
@@ -8463,10 +8457,10 @@
             overElement = UI.$(document.elementFromPoint(e.pageX - (document.body.scrollLeft || document.scrollLeft || 0), e.pageY - (document.body.scrollTop || document.documentElement.scrollTop || 0)));
 
             var overRoot     = overElement.closest('.'+this.options.baseClass),
-                groupOver    = overRoot.data("sortable-group"),
+                groupOver    = overRoot.data('sortable-group'),
                 $current     = UI.$(currentlyDraggingElement),
                 currentRoot  = $current.parent(),
-                groupCurrent = $current.data("sortable-group"),
+                groupCurrent = $current.data('sortable-group'),
                 overChild;
 
             if (overRoot[0] !== currentRoot[0] && groupCurrent !== undefined && groupOver === groupCurrent) {
@@ -8511,12 +8505,12 @@
             if (previousCounter === 0) {
 
                 var currentlist = UI.$(elem).parent(),
-                    startlist   = UI.$(currentlyDraggingElement).data("start-list");
+                    startlist   = UI.$(currentlyDraggingElement).data('start-list');
 
                 if (currentlist[0] !== startlist[0]) {
 
                     var groupOver    = currentlist.data('sortable-group'),
-                        groupCurrent = UI.$(currentlyDraggingElement).data("sortable-group");
+                        groupCurrent = UI.$(currentlyDraggingElement).data('sortable-group');
 
                     if ((groupOver ||  groupCurrent) && (groupOver != groupCurrent)) {
                         return false;
@@ -8590,7 +8584,7 @@
             if (!currentlyDraggingElement) return;
 
             var $current = UI.$(currentlyDraggingElement),
-                oldRoot  = draggingPlaceholder.data("origin"),
+                oldRoot  = draggingPlaceholder.data('origin'),
                 newRoot  = $current.closest('.'+this.options.baseClass),
                 triggers = [],
                 el       = UI.$(currentlyDraggingElement);
@@ -8659,7 +8653,7 @@
             }).each(function() {
                 var ele    = UI.$(this),
                     before = ele.data('offset-before');
-                ele.css({'position':'absolute', 'top':before.top, 'left':before.left, 'min-width':before.width });
+                ele.css({position:'absolute', top:before.top, left:before.left, minWidth:before.width });
             });
 
             children.each(function(){
@@ -8672,7 +8666,7 @@
 
                     setTimeout(function(){
                         ele.animate({'top':offset.top, 'left':offset.left}, $this.options.animation, function() {
-                            ele.css({'position':'','top':'', 'left':'', 'min-width': '', 'pointer-events':''}).removeClass($this.options.overClass).removeData('child-dragenter');
+                            ele.css({position:'',top:'', left:'', minWidth: '', 'pointer-events':''}).removeClass($this.options.overClass).removeData('child-dragenter');
                             count--;
                             if (!count) {
                                 list.css('min-height', '');
@@ -8765,7 +8759,7 @@
     return UI.sortable;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -8774,8 +8768,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-sticky", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-sticky', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -8799,7 +8793,7 @@
             clsactive    : 'uk-active',
             clsinactive  : '',
             getWidthFrom : '',
-            showup      : false,
+            showup       : false,
             boundary     : false,
             media        : false,
             target       : false,
@@ -8832,11 +8826,11 @@
 
                 setTimeout(function(){
 
-                    UI.$("[data-uk-sticky]", context).each(function(){
+                    UI.$('[data-uk-sticky]', context).each(function(){
 
                         var $ele = UI.$(this);
 
-                        if (!$ele.data("sticky")) {
+                        if (!$ele.data('sticky')) {
                             UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
                         }
                     });
@@ -8913,7 +8907,7 @@
                     this.calcTop();
 
                     var finalize = function() {
-                        this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
+                        this.element.css({position:'', top:'', width:'', left:'', margin:'0'});
                         this.element.removeClass([this.options.animation, 'uk-animation-reverse', this.options.clsactive].join(' '));
                         this.element.addClass(this.options.clsinactive);
                         this.element.trigger('inactive.uk.sticky');
@@ -9036,7 +9030,7 @@
 
             sticky = stickies[i];
 
-            if (!sticky.element.is(":visible") || sticky.animate) {
+            if (!sticky.element.is(':visible') || sticky.animate) {
                 continue;
             }
 
@@ -9073,7 +9067,7 @@
                 if (sticky.currentTop != newTop) {
 
                     sticky.element.css({
-                        position : "fixed",
+                        position : 'fixed',
                         top      : newTop,
                         width    : sticky.getWidthFrom.length ? sticky.getWidthFrom.width() : sticky.element.width()
                     });
@@ -9130,7 +9124,7 @@
     return UI.sticky;
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
     var component;
 
@@ -9138,8 +9132,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-tooltip", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-tooltip', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -9149,7 +9143,7 @@
     "use strict";
 
     var $tooltip,   // tooltip container
-        tooltipdelay, checkdelay;
+        tooltipdelay, checkIdle;
 
     UI.component('tooltip', {
 
@@ -9158,8 +9152,8 @@
             pos: 'top',
             animation: false,
             delay: 0, // in miliseconds
-            cls: "",
-            activeClass: "uk-active",
+            cls: '',
+            activeClass: 'uk-active',
             src: function(ele) {
                 var title = ele.attr('title');
 
@@ -9171,17 +9165,17 @@
             }
         },
 
-        tip: "",
+        tip: '',
 
         boot: function() {
 
             // init code
-            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
+            UI.$html.on('mouseenter.tooltip.uikit focus.tooltip.uikit', '[data-uk-tooltip]', function(e) {
                 var ele = UI.$(this);
 
-                if (!ele.data("tooltip")) {
-                    UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
-                    ele.trigger("mouseenter");
+                if (!ele.data('tooltip')) {
+                    UI.tooltip(ele, UI.Utils.options(ele.attr('data-uk-tooltip')));
+                    ele.trigger('mouseenter');
                 }
             });
         },
@@ -9204,14 +9198,14 @@
 
         show: function() {
 
-            this.tip = typeof(this.options.src) === "function" ? this.options.src(this.element) : this.options.src;
+            this.tip = typeof(this.options.src) === 'function' ? this.options.src(this.element) : this.options.src;
 
-            if (tooltipdelay)     clearTimeout(tooltipdelay);
-            if (checkdelay)       clearTimeout(checkdelay);
+            if (tooltipdelay) clearTimeout(tooltipdelay);
+            if (checkIdle)    clearInterval(checkIdle);
 
             if (typeof(this.tip) === 'string' ? !this.tip.length:true) return;
 
-            $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).removeClass(this.options.activeClass).show();
+            $tooltip.stop().css({top: -2000, visibility: 'hidden'}).removeClass(this.options.activeClass).show();
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
             var $this      = this,
@@ -9222,10 +9216,10 @@
                 position   = typeof(this.options.pos) === "function" ? this.options.pos.call(this.element) : this.options.pos,
                 tmppos     = position.split("-"),
                 tcss       = {
-                    "display"    : "none",
-                    "visibility" : "visible",
-                    "top"        : (pos.top + pos.height + height),
-                    "left"       : pos.left
+                    display    : 'none',
+                    visibility : 'visible',
+                    top        : (pos.top + pos.height + height),
+                    left       : pos.left
                 };
 
 
@@ -9234,22 +9228,22 @@
             if (UI.$html.css('position')=='fixed' || UI.$body.css('position')=='fixed'){
                 var bodyoffset = UI.$('body').offset(),
                     htmloffset = UI.$('html').offset(),
-                    docoffset  = {'top': (htmloffset.top + bodyoffset.top), 'left': (htmloffset.left + bodyoffset.left)};
+                    docoffset  = {top: (htmloffset.top + bodyoffset.top), left: (htmloffset.left + bodyoffset.left)};
 
                 pos.left -= docoffset.left;
                 pos.top  -= docoffset.top;
             }
 
 
-            if ((tmppos[0] == "left" || tmppos[0] == "right") && UI.langdirection == 'right') {
-                tmppos[0] = tmppos[0] == "left" ? "right" : "left";
+            if ((tmppos[0] == 'left' || tmppos[0] == 'right') && UI.langdirection == 'right') {
+                tmppos[0] = tmppos[0] == 'left' ? 'right' : 'left';
             }
 
             var variants =  {
-                "bottom"  : {top: pos.top + pos.height + offset, left: pos.left + pos.width / 2 - width / 2},
-                "top"     : {top: pos.top - height - offset, left: pos.left + pos.width / 2 - width / 2},
-                "left"    : {top: pos.top + pos.height / 2 - height / 2, left: pos.left - width - offset},
-                "right"   : {top: pos.top + pos.height / 2 - height / 2, left: pos.left + pos.width + offset}
+                bottom  : {top: pos.top + pos.height + offset, left: pos.left + pos.width / 2 - width / 2},
+                top     : {top: pos.top - height - offset, left: pos.left + pos.width / 2 - width / 2},
+                left    : {top: pos.top + pos.height / 2 - height / 2, left: pos.left - width - offset},
+                right   : {top: pos.top + pos.height / 2 - height / 2, left: pos.left + pos.width + offset}
             };
 
             UI.$.extend(tcss, variants[tmppos[0]]);
@@ -9261,37 +9255,37 @@
             if(boundary) {
 
                 switch(boundary) {
-                    case "x":
+                    case 'x':
 
                         if (tmppos.length == 2) {
-                            position = tmppos[0]+"-"+(tcss.left < 0 ? "left": "right");
+                            position = tmppos[0]+"-"+(tcss.left < 0 ? 'left': 'right');
                         } else {
-                            position = tcss.left < 0 ? "right": "left";
+                            position = tcss.left < 0 ? 'right': 'left';
                         }
 
                         break;
 
-                    case "y":
+                    case 'y':
                         if (tmppos.length == 2) {
-                            position = (tcss.top < 0 ? "bottom": "top")+"-"+tmppos[1];
+                            position = (tcss.top < 0 ? 'bottom': 'top')+'-'+tmppos[1];
                         } else {
-                            position = (tcss.top < 0 ? "bottom": "top");
+                            position = (tcss.top < 0 ? 'bottom': 'top');
                         }
 
                         break;
 
-                    case "xy":
+                    case 'xy':
                         if (tmppos.length == 2) {
-                            position = (tcss.top < 0 ? "bottom": "top")+"-"+(tcss.left < 0 ? "left": "right");
+                            position = (tcss.top < 0 ? 'bottom': 'top')+'-'+(tcss.left < 0 ? 'left': 'right');
                         } else {
-                            position = tcss.left < 0 ? "right": "left";
+                            position = tcss.left < 0 ? 'right': 'left';
                         }
 
                         break;
 
                 }
 
-                tmppos = position.split("-");
+                tmppos = position.split('-');
 
                 UI.$.extend(tcss, variants[tmppos[0]]);
 
@@ -9303,7 +9297,7 @@
 
             tooltipdelay = setTimeout(function(){
 
-                $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-"+position, $this.options.cls].join(' '));
+                $tooltip.css(tcss).attr('class', ['uk-tooltip', 'uk-tooltip-'+position, $this.options.cls].join(' '));
 
                 if ($this.options.animation) {
                     $tooltip.css({opacity: 0, display: 'block'}).addClass($this.options.activeClass).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
@@ -9314,7 +9308,7 @@
                 tooltipdelay = false;
 
                 // close tooltip if element was removed or hidden
-                checkdelay = setInterval(function(){
+                checkIdle = setInterval(function(){
                     if(!$this.element.is(':visible')) $this.hide();
                 }, 150);
 
@@ -9322,10 +9316,11 @@
         },
 
         hide: function() {
-            if(this.element.is("input") && this.element[0]===document.activeElement) return;
 
-            if(tooltipdelay) clearTimeout(tooltipdelay);
-            if (checkdelay)  clearTimeout(checkdelay);
+            if (this.element.is('input') && this.element[0]===document.activeElement) return;
+
+            if (tooltipdelay) clearTimeout(tooltipdelay);
+            if (checkIdle)  clearInterval(checkIdle);
 
             $tooltip.stop();
 
@@ -9558,7 +9553,7 @@
 
 });
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -9567,8 +9562,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-upload", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-upload', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -9583,7 +9578,7 @@
 
             var $this = this;
 
-            this.on("change", function() {
+            this.on('change', function() {
                 xhrupload($this.element[0].files, $this.options);
                 var twin = $this.element.clone(true).data('uploadSelect', $this);
                 $this.element.replaceWith(twin);
@@ -9602,7 +9597,7 @@
 
             var $this = this, hasdragCls = false;
 
-            this.on("drop", function(e){
+            this.on('drop', function(e){
 
                 if (e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files) {
 
@@ -9615,10 +9610,10 @@
                     xhrupload(e.originalEvent.dataTransfer.files, $this.options);
                 }
 
-            }).on("dragenter", function(e){
+            }).on('dragenter', function(e){
                 e.stopPropagation();
                 e.preventDefault();
-            }).on("dragover", function(e){
+            }).on('dragover', function(e){
                 e.stopPropagation();
                 e.preventDefault();
 
@@ -9626,7 +9621,7 @@
                     $this.element.addClass($this.options.dragoverClass);
                     hasdragCls = true;
                 }
-            }).on("dragleave", function(e){
+            }).on('dragleave', function(e){
                 e.stopPropagation();
                 e.preventDefault();
                 $this.element.removeClass($this.options.dragoverClass);
@@ -9732,21 +9727,21 @@
             for (var p in settings.params) { formData.append(p, settings.params[p]); }
 
             // Add any event handlers here...
-            xhr.upload.addEventListener("progress", function(e){
+            xhr.upload.addEventListener('progress', function(e){
                 var percent = (e.loaded / e.total)*100;
                 settings.progress(percent, e);
             }, false);
 
-            xhr.addEventListener("loadstart", function(e){ settings.loadstart(e); }, false);
-            xhr.addEventListener("load",      function(e){ settings.load(e);      }, false);
-            xhr.addEventListener("loadend",   function(e){ settings.loadend(e);   }, false);
-            xhr.addEventListener("error",     function(e){ settings.error(e);     }, false);
-            xhr.addEventListener("abort",     function(e){ settings.abort(e);     }, false);
+            xhr.addEventListener('loadstart', function(e){ settings.loadstart(e); }, false);
+            xhr.addEventListener('load',      function(e){ settings.load(e);      }, false);
+            xhr.addEventListener('loadend',   function(e){ settings.loadend(e);   }, false);
+            xhr.addEventListener('error',     function(e){ settings.error(e);     }, false);
+            xhr.addEventListener('abort',     function(e){ settings.abort(e);     }, false);
 
             xhr.open(settings.method, settings.action, true);
 
-            if (settings.type=="json") {
-                xhr.setRequestHeader("Accept", "application/json");
+            if (settings.type=='json') {
+                xhr.setRequestHeader('Accept', 'application/json');
             }
 
             for (var h in settings.headers) {
@@ -9761,7 +9756,7 @@
 
                     var response = xhr.responseText;
 
-                    if (settings.type=="json") {
+                    if (settings.type=='json') {
                         try {
                             response = UI.$.parseJSON(response);
                         } catch(e) {

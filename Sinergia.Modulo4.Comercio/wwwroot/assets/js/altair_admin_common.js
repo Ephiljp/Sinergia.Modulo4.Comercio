@@ -48,6 +48,9 @@
         // print page
         altair_helpers.print_page();
 
+        // uikit custom
+        altair_uikit.accordion_user_selected();
+
     });
 
 
@@ -354,13 +357,16 @@
                             this_color = $($this).attr('data-switchery-color'),
                             this_secondary_color = $($this).attr('data-switchery-secondary-color');
 
-                        new Switchery($this, {
+                        var switchery = new Switchery($this, {
                             color: (typeof this_color !== 'undefined') ? hex2rgba(this_color,50) : hex2rgba('#009688',50),
                             jackColor: (typeof this_color !== 'undefined') ? hex2rgba(this_color,100) : hex2rgba('#009688',100),
                             secondaryColor: (typeof this_secondary_color !== 'undefined') ? hex2rgba(this_secondary_color,50) : 'rgba(0, 0, 0,0.26)',
                             jackSecondaryColor: (typeof this_secondary_color !== 'undefined') ? hex2rgba(this_secondary_color,50) : '#fafafa',
                             className: 'switchery' + ( (typeof this_size !== 'undefined') ? ' switchery-'+ this_size : '' )
                         });
+
+                        $(this).data('ObjSwitchery', switchery);
+
                     }
                 })
             }
@@ -413,144 +419,52 @@
             };
         },
         dynamic_fields: function() {
-            // clone section
-            $('.btnSectionClone').on('click', function(e) {
-                e.preventDefault();
-                var $this = $(this),
-                    section_to_clone = $this.attr('data-section-clone'),
-                    section_number = $(section_to_clone).parent().children('[data-section-added]:last').attr('data-section-added') ? parseInt($(section_to_clone).parent().children('[data-section-added]:last').attr('data-section-added')) + 1 : 1,
-                    cloned_section = $(section_to_clone).clone();
+            function add_fields(wrapper,template,index) {
 
-                    cloned_section
-                        .attr('data-section-added',section_number)
-                        .removeAttr('id')
-                        // inputs
-                        .find('.md-input').each(function(index) {
-                            var $thisInput = $(this),
-                                name = $thisInput.attr('name');
+                var source   = $("#"+template).html(),
+                    tmpl = Handlebars.compile(source),
+                    theCompiledHtml = tmpl({
+                        index: index ? index : 0,
+                        counter:  index ? '__' + index : '__' + 0
+                    });
 
-                            $thisInput
-                                .val('')
-                                .attr('name',name ? name + '[s_'+section_number +':i_'+ index +']' : '[s_'+section_number +':i_'+ index +']')
+                wrapper.append(theCompiledHtml);
 
-                            altair_md.update_input($thisInput);
-                        })
-                        .end()
-                        // replace clone button with remove button
-                        .find('.btnSectionClone').replaceWith('<a href="#" class="btnSectionRemove"><i class="material-icons md-24">&#xE872;</i></a>')
-                        .end()
-                        // clear checkboxes
-                        .find('[data-md-icheck]:checkbox').each(function(index) {
-                            var $thisInput = $(this),
-                                name = $thisInput.attr('name'),
-                                id = $thisInput.attr('id'),
-                                $inputLabel = cloned_section.find('label[for="'+ id +'"]'),
-                                newName = name ? name + '-s'+section_number +':cb'+ index +'' : 's'+section_number +':cb'+ index;
-                                newId = id ? id + '-s'+section_number +':cb'+ index +'' : 's'+section_number +':cb'+ index;
+                // initialize inputs
+                altair_md.inputs(wrapper);
+                // initialize checkboxes
+                altair_md.checkbox_radio(wrapper.find('[data-md-icheck]'));
+                // initialize switches
+                altair_forms.switches(wrapper);
+                // initialize selectize
+                altair_forms.select_elements(wrapper);
 
-                            $thisInput
-                                .attr('name', newName)
-                                .attr('id', newId)
-                                .removeAttr('style').removeAttr('checked').unwrap().next('.iCheck-helper').remove();
+            }
+            $('[data-dynamic-fields]').each(function () {
+                var $this = $(this).attr('dynamic-fields-counter',0),
+                    this_template = $this.data('dynamicFields');
 
-                            $inputLabel.attr('for', newId);
-                        })
-                        .end()
-                        // clear radio
-                        .find('.dynamic_radio').each(function(index) {
-                            var $this = $(this),
-                                thisIndex = index;
+                add_fields($this,this_template);
 
-                            $this.find('[data-md-icheck]').each(function(index) {
-                                var $thisInput = $(this),
-                                    name = $thisInput.attr('name'),
-                                    id = $thisInput.attr('id'),
-                                    $inputLabel = cloned_section.find('label[for="'+ id +'"]'),
-                                    newName = name ? name + '-s'+section_number +':cb'+ thisIndex +'' : '[s'+section_number +':cb'+ thisIndex;
-                                    newId = id ? id + '-s'+section_number +':cb'+ index +'' : 's'+section_number +':cb'+ index;
+                $this
+                    // add section
+                    .on('click','.btnSectionClone',function (e) {
+                        e.preventDefault();
+                        $this.find('.btnSectionClone').replaceWith('<a href="#" class="btnSectionRemove"><i class="material-icons md-24">&#xE872;</i></a>');
 
-                                $thisInput
-                                    .attr('name', newName)
-                                    .attr('id', newId)
-                                    .attr('data-parsley-multiple', newName)
-                                    .removeAttr('data-parsley-id')
-                                    .removeAttr('style').removeAttr('checked').unwrap().next('.iCheck-helper').remove();
+                        var index = parseInt($this.attr('dynamic-fields-counter')) + 1;
+                        $this.attr('dynamic-fields-counter',index);
 
-                                $inputLabel.attr('for', newId);
-                            })
-                        })
-                        .end()
-                        // switchery
-                        .find('[data-switchery]').each(function(index) {
-                            var $thisInput = $(this),
-                                name = $thisInput.attr('name'),
-                                id = $thisInput.attr('id'),
-                                $inputLabel = cloned_section.find('label[for="'+ id +'"]'),
-                                newName = name ? name + '-s'+section_number +':sw'+ index +'' : 's'+section_number +':sw'+ index,
-                                newId = id ? id + '-s'+section_number +':sw'+ index +'' : 's'+section_number +':sw'+ index;
-
-                            $thisInput
-                                .attr('name', newName)
-                                .attr('id', newId)
-                                .removeAttr('style').removeAttr('checked').next('.switchery').remove();
-    
-                            $inputLabel.attr('for', newId);
-                        
-                        })
-                        .end()
-                        // selectize
-                        .find('[data-md-selectize]').each(function(index) {
-                                var $thisSelect = $(this),
-                                    name = $thisSelect.attr('name'),
-                                    id = $thisSelect.attr('id'),
-                                    orgSelect = $('#'+id),
-                                    newName = name ? name + '-s'+section_number +':sel'+ index +'' : 's'+section_number +':sel'+ index,
-                                    newId = id ? id + '-s'+section_number +':sel'+ index +'' : 's'+section_number +':sel'+ index;
-
-                            // destroy selectize
-                            var selectize = orgSelect[0].selectize;
-                            if(selectize) {
-                                selectize.destroy();
-                                orgSelect.val('').next('.selectize_fix').remove();
-                                var clonedOptions = orgSelect.html();
-                                altair_forms.select_elements(orgSelect.parent());
-
-                                $thisSelect
-                                    .html(clonedOptions)
-                                    .attr('name', newName)
-                                    .attr('id', newId)
-                                    .removeClass('selectized')
-                                    .next('.selectize-control').remove()
-                                    .end()
-                                    .next('.selectize_fix').remove();
-                            }
-
-                        });
-
-                $(section_to_clone).before(cloned_section);
-
-
-                var $newSection = $(section_to_clone).prev();
-
-                if($newSection.hasClass('form_section_separator')) {
-                    $newSection.after('<hr class="form_hr">')
-                }
-
-                // reinitialize checkboxes
-                altair_md.checkbox_radio($newSection.find('[data-md-icheck]'));
-                // reinitialize switches
-                altair_forms.switches($newSection);
-                // reinitialize selectize
-                altair_forms.select_elements($newSection);
+                        add_fields($this,this_template,index);
+                    })
+                    // remove section
+                    .on('click', '.btnSectionRemove', function(e) {
+                        e.preventDefault();
+                        var $this = $(this);
+                        $this.closest('.form_section').next('.form_hr').remove().end().remove();
+                    });
 
             });
-            
-            // remove section
-            $('#page_content').on('click', '.btnSectionRemove', function(e) {
-                e.preventDefault();
-                var $this = $(this);
-                $this.closest('.form_section').remove();
-            })
         }
     };
 
@@ -708,12 +622,16 @@
             });
 
             // open section/add classes if children has class .act_item
-            $sidebar_main
-                .find('.act_item')
-                .closest('.submenu_trigger')
-                .addClass('act_section current_section')
-                .children('a')
-                .trigger('click');
+            $sidebar_main.find('.act_item')
+                .each(function() {
+                    var $this = $(this);
+                    // top parent
+                    $this.parents('.submenu_trigger').last().addClass('current_section');
+                    // all parents
+                    $this.parents('.submenu_trigger').addClass('act_section').children('ul').show();
+                    // active item
+                    $this.children('ul').show();
+                });
         },
         lang_switcher: function() {
             var $lang_switcher = $('#lang_switcher');
@@ -1030,30 +948,12 @@
                 });
         },
         search_autocomplete: function() {
-            /*function cb(release) {
-                var data = [];
-                // build your data ...
-                $.ajax({
-                    type: "POST",
-                    url: "process.php",
-                    data: dataString,
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.response == 'captcha') {
-                            alert('captcha');
-                        } else if (data.response == 'success') {
-                            alert('success');
-                        } else {
-                            alert('sorry there was an error');
-                        }
-                    }
-                });
-                release(data); // release the data back to the autocompleter
-            }
-
-            var autocomplete = $.UIkit.autocomplete($('#header_autocomplete'), {
-                'source': cb
-            });*/
+            // 'on item selected' event
+            $('.header_main_search_form').children('[data-uk-autocomplete]').on('selectitem.uk.autocomplete', function(event, data, acobject) {
+                console.log(event);
+                console.log(data);
+                console.log(acobject);
+            });
         }
     };
 
@@ -1624,7 +1524,7 @@
                 $object.children('.scrollbar-inner').addClass('touchscroll');
             } else {
                 $object.children('.scrollbar-inner').scrollbar({
-                    disableBodyScroll: true,
+                    //disableBodyScroll: true,
                     scrollx: false,
                     duration: 100
                 });
@@ -1836,21 +1736,21 @@
             }
         },
         print_page: function() {
-        $body.on('click','#page_print',function(e) {
-            e.preventDefault();
-            UIkit.modal.confirm('Do you want to print this page?', function () {
-                // hide sidebar
-                altair_main_sidebar.hide_sidebar();
-                // wait for dialog to fully hide
-                setTimeout(function () {
-                    window.print();
-                }, 300)
-            }, {
-                labels: {
-                    'Ok': 'print'
-                }
-            });
-        })
+            $body.on('click','#page_print',function(e) {
+                e.preventDefault();
+                UIkit.modal.confirm('Do you want to print this page?', function () {
+                    // hide sidebar
+                    altair_main_sidebar.hide_sidebar();
+                    // wait for dialog to fully hide
+                    setTimeout(function () {
+                        window.print();
+                    }, 300)
+                }, {
+                    labels: {
+                        'Ok': 'print'
+                    }
+                });
+            })
         }
     };
 
@@ -1864,5 +1764,28 @@
                 }
             });
             $window.resize();
+        },
+        accordion_user_selected: function() {
+            // open user defined accordion section on page load
+            $('[data-accordion-section-open]').each(function() {
+                var $elem = $(this);
+                setTimeout(function() {
+                    var data = $elem.data();
+                        sectOpen = data.accordionSectionOpen.toString().split(",");
+
+                    // close all accordion sections
+                    $elem.children('.uk-accordion-title.uk-active').each(function() {
+                        $(this).trigger('click');
+                    });
+                    if(!data.accordion.options.collapse && (sectOpen.length > 1)) {
+                        // open multiple sections
+                        for(var $i = 0;$i <= sectOpen.length;$i++) {
+                            $elem.children('.uk-accordion-title').eq(sectOpen[$i] - 1).trigger('click')
+                        }
+                    } else {
+                        $elem.children('.uk-accordion-title').eq(sectOpen[0] - 1).trigger('click')
+                    }
+                },220);
+            })
         }
     };

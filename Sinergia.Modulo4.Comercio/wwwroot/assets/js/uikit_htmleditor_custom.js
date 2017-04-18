@@ -12693,7 +12693,7 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -12702,8 +12702,8 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-htmleditor", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-htmleditor', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }

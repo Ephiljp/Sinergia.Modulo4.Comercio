@@ -12,5 +12,11 @@ namespace Sinergia.Modulo4.Comercio.Controllers
         {
             return View();
         }
+
+
+        public IActionResult Editar()
+        {
+            return View();
+        }
     }
 }

@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinergia.Modulo4.Comercio", "Sinergia.Modulo4.Comercio\Sinergia.Modulo4.Comercio.csproj", "{57B8BBB8-7C01-4468-ABE2-5E51F7F40572}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinergia.Modulo4.Comercio.Model", "Sinergia.Modulo4.Comercio.Model\Sinergia.Modulo4.Comercio.Model.csproj", "{82C2CD36-F338-49B7-B9EA-C2177FF0C4C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinergia.Modulo4.Comercio.Enumerador", "Sinergia.Modulo4.Comercio.Enumerador\Sinergia.Modulo4.Comercio.Enumerador.csproj", "{E23D99FD-E845-4879-9617-D12F0171B67A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{57B8BBB8-7C01-4468-ABE2-5E51F7F40572}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57B8BBB8-7C01-4468-ABE2-5E51F7F40572}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57B8BBB8-7C01-4468-ABE2-5E51F7F40572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C2CD36-F338-49B7-B9EA-C2177FF0C4C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C2CD36-F338-49B7-B9EA-C2177FF0C4C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C2CD36-F338-49B7-B9EA-C2177FF0C4C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C2CD36-F338-49B7-B9EA-C2177FF0C4C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E23D99FD-E845-4879-9617-D12F0171B67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E23D99FD-E845-4879-9617-D12F0171B67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E23D99FD-E845-4879-9617-D12F0171B67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E23D99FD-E845-4879-9617-D12F0171B67A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

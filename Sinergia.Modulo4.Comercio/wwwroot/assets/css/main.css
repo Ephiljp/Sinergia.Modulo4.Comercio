@@ -581,6 +581,12 @@
 .uk-table tr.row_checked td {
   background: #e3f2fd;
 }
+.uk-table .uk-table {
+  margin-bottom: 0;
+}
+.uk-table .uk-table tr:last-child td {
+  border-bottom: none;
+}
 .uk-table-no-border td {
   border-bottom-color: transparent;
 }
@@ -685,7 +691,7 @@
 }
 /* ------------ Components ------------ */
 /* accordion */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Accordion
  ========================================================================== */
@@ -808,7 +814,7 @@
   padding: 24px;
 }
 /* dotnav */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Dotnav
  ========================================================================== */
@@ -933,7 +939,7 @@
   float: none;
 }
 /* progress */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Progress
  ========================================================================== */
@@ -1055,7 +1061,7 @@
   background-color: #ffa000;
 }
 /* htmleditor */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: HTML editor
  ========================================================================== */
@@ -1311,7 +1317,7 @@
   top: 38px;
 }
 /* upload */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Form file
  ========================================================================== */
@@ -1345,7 +1351,7 @@
   /* 2 */
   font-size: 500px;
 }
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Upload
  ========================================================================== */
@@ -1390,7 +1396,7 @@ div.uk-form-file.md-btn {
   cursor: pointer;
 }
 /* form select */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Form select
  ========================================================================== */
@@ -1554,7 +1560,7 @@ a.uk-datepicker-table-muted {
   color: #727272;
 }
 /* nestable */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Nestable
  ========================================================================== */
@@ -1739,7 +1745,7 @@ a.uk-datepicker-table-muted {
   content: "\e313";
 }
 /* notify */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Notify
  ========================================================================== */
@@ -1973,7 +1979,7 @@ a.uk-datepicker-table-muted {
   }
 }
 /* slideshow */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Slideshow
  ========================================================================== */
@@ -2119,7 +2125,7 @@ a.uk-datepicker-table-muted {
   animation: uk-fade 0.5s ease-in-out reverse;
 }
 /* slider */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Slider
  ========================================================================== */
@@ -2226,7 +2232,7 @@ html[dir="rtl"] .uk-slider > * {
   opacity: 1;
 }
 /* slidenav */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Slidenav
  ========================================================================== */
@@ -2325,7 +2331,7 @@ html[dir="rtl"] .uk-slider > * {
   color: rgba(255, 255, 255, 0.9);
 }
 /* tooltips */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Tooltip
  ========================================================================== */
@@ -2350,6 +2356,7 @@ html[dir="rtl"] .uk-slider > * {
   color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
   line-height: 18px;
+  word-break: break-all;
   border-radius: 3px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 }
@@ -2622,7 +2629,7 @@ html[dir="rtl"] .uk-slider > * {
   display: block;
 }
 /* sortable */
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Sortable
  ========================================================================== */
@@ -3180,6 +3187,45 @@ body > .content-preloader.preloader-active {
 }
 .timeline.timeline_small .timeline_content blockquote {
   font-size: 13px;
+}
+.list_view > *,
+.grid_view > * {
+  -webkit-transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.grid_view.uk-grid-medium {
+  margin-top: -32px;
+}
+.grid_view.uk-grid-small {
+  margin-top: -5px;
+}
+.list_view {
+  margin-left: 0 !important;
+}
+.list_view > div,
+.list_view > li {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.list_view > div .md-card,
+.list_view > li .md-card {
+  overflow: hidden;
+}
+.list_view > div .md-card-head,
+.list_view > li .md-card-head {
+  float: left;
+  border: none;
+  width: 200px;
+}
+.list_view > div .md-card-content,
+.list_view > li .md-card-content {
+  overflow: hidden;
+}
+.list_view > div + div,
+.list_view > li + li {
+  border-top: 1px solid #ededed;
+  margin: 0 !important;
 }
 /* 5. material design styles ========================= */
 /* bg colors */
@@ -5951,6 +5997,53 @@ body > .content-preloader.preloader-active {
 }
 .md-card-warning {
   border-left-color: #ffa000;
+}
+.md-card-horizontal {
+  position: relative;
+  min-height: 200px;
+}
+.md-card-horizontal:before,
+.md-card-horizontal:after {
+  content: " ";
+  display: table;
+}
+.md-card-horizontal:after {
+  clear: both;
+}
+.md-card-horizontal:before,
+.md-card-horizontal:after {
+  content: " ";
+  display: table;
+}
+.md-card-horizontal:after {
+  clear: both;
+}
+.md-card-horizontal .md-card-head {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: none;
+  width: 200px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+@media only screen and (max-width: 767px) {
+  .md-card-horizontal .md-card-head {
+    width: 140px;
+  }
+}
+.md-card-horizontal .md-card-head-menu {
+  right: auto;
+  left: 8px;
+}
+.md-card-horizontal .md-card-content {
+  margin-left: 200px;
+}
+@media only screen and (max-width: 767px) {
+  .md-card-horizontal .md-card-content {
+    margin-left: 140px;
+  }
 }
 .md-expand,
 .md-expand-group > * {
@@ -9595,6 +9688,9 @@ div.ganttview-hzheader-day {
 div.ganttview-hzheader-day.ganttview-weekend {
   background: #f8f8f8;
 }
+div.ganttview-hzheader-day.ganttview-today {
+  background: #fff9db !important;
+}
 div.ganttview-vtheader {
   margin-top: 41px;
   width: 240px;
@@ -9712,6 +9808,9 @@ div.ganttview-hzheader-months,
 div.ganttview-hzheader-days {
   overflow: hidden;
 }
+div.ganttview-hzheader-days {
+  position: relative;
+}
 div.ganttview-slide-container {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -9732,6 +9831,9 @@ div.ganttview-grid-row-cell {
 }
 div.ganttview-grid-row-cell.ganttview-weekend {
   background-color: #fafafa;
+}
+div.ganttview-grid-row-cell.ganttview-today {
+  background-color: #fff9db !important;
 }
 div.ganttview-grid-spacer {
   background: #ededed;
@@ -10462,7 +10564,7 @@ div.ganttview .ui-resizable-w {
 .tablesorter-altair .tablesorter-processing {
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  background-image: url(../assets/img/spinners/spinner.gif) !important;
+  background-image: url(../img/spinners/spinner_small.gif) !important;
 }
 .tablesorter-altair caption {
   background-color: #fff;
@@ -10919,6 +11021,13 @@ div.kineticjs-content {
 .context-menu-list .context-menu-disabled > .material-icons {
   color: #bbb;
 }
+.echart {
+  min-height: 380px;
+  height: 100%;
+}
+.echart-large {
+  min-height: 460px;
+}
 /* 7. partials (header,sidebars,top bar) ============= */
 /* main header */
 #header_main {
@@ -10951,6 +11060,18 @@ div.kineticjs-content {
 #header_main .uk-navbar {
   border: none;
   background: none;
+}
+#header_main .uk-navbar .uk-navbar-brand {
+  text-shadow: none;
+  color: #fff;
+  line-height: 52px;
+  height: 48px;
+  font-size: 18px;
+  padding: 0;
+  text-transform: uppercase;
+}
+#header_main .uk-navbar .uk-navbar-brand + * {
+  margin-left: 25px;
 }
 #header_main .uk-navbar .uk-navbar-nav {
   position: relative;
@@ -11384,7 +11505,7 @@ div.kineticjs-content {
 #sidebar_main .menu_section > ul > li ul a:hover {
   text-decoration: none;
 }
-#sidebar_main .menu_section > ul > li ul li.act_item a {
+#sidebar_main .menu_section > ul > li ul li.act_item > a {
   color: #7cb342;
   font-weight: 500;
 }
